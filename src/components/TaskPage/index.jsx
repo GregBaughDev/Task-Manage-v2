@@ -2,6 +2,8 @@ import React from 'react'
 import { Header, Img, Nav, Main } from './styles'
 import CardHolder from '../CardHolder.jsx'
 import logo from '../../public/img/TMlogo.png'
+import seedData from './seeds'
+import columns from './columns'
 
 const TaskPage = () => {
     return (
@@ -14,7 +16,7 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder />
+                <CardHolder columns={columns} seedData={seedData} />
             </Main>
         </>
     )

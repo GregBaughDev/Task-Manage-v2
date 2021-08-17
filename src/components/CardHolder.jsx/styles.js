@@ -21,6 +21,11 @@ export const HolderHead = styled.div`
     background-color: #DAEDDE;
 `
 
+export const H3 = styled.h3`
+    width: 25%;
+    text-align: center;
+`
+
 export const Cards = styled.div`
     width: 100%;
     display: flex;
@@ -28,10 +33,27 @@ export const Cards = styled.div`
     padding: 2vh 0;
 `  
 
-export const Column = styled(Cards)`
-    width: 23%;
-    display: flex;
-    flex-direction: column;
+export const CardDisplay = styled.div`
+    // Make display a conditional style between flex and none
+    display: none;
+    justify-content: center;
     align-items: center;
-    border: 1px solid red;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(44,67,109,0.7);
+    overflow-y: hidden;
 `
+
+export const CardModal = styled.aside`
+    background-color: #F8CCC5;
+    border: 3px solid #2C436D;
+    border-radius: 30px;
+    text-align: center;
+    width: 60%;
+    height: auto;
+    pointer-events: none;
+`   

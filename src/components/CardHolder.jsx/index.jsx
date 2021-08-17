@@ -1,28 +1,23 @@
 import React from 'react'
-import { Holder, HolderHead, Cards, Column } from './styles'
+import { Holder, HolderHead, Cards, H3, CardDisplay, CardModal } from './styles'
+import Column from '../Column/index'
 
-const CardHolder = () => {
+const CardHolder = ({columns, seedData}) => {
     return(
         <Holder>
+            {/* CardDisplay needs a conditional prop to style correctly */}
+            <CardDisplay>
+                <CardModal />
+            </CardDisplay>
             <HolderHead>
-                <h3>To Do</h3>
-                <h3>In Progress</h3>
-                <h3>QA</h3>
-                <h3>Complete</h3>
+                {columns.map((column) => (
+                        <H3 key={column.id}>{column.name}</H3>
+                    ))}
             </HolderHead>
             <Cards>
-                <Column>
-                <h2>test</h2>
-                </Column>
-                <Column>
-                <h2>test</h2>
-                </Column>
-                <Column>
-                <h2>test</h2>
-                </Column>
-                <Column>
-                <h2>test</h2>
-                </Column>
+                {columns.map((column) => (
+                    <Column key={column.id} colNum={column.id} seedData={seedData} />
+                ))}
             </Cards>
         </Holder>
     )
