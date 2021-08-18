@@ -14,3 +14,10 @@ export const Card = styled.section`
     border-radius: 25px;
     margin-bottom: 5%;
 `
+
+export const H4 = styled.h4`
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+`

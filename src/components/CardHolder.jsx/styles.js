@@ -34,8 +34,7 @@ export const Cards = styled.div`
 `  
 
 export const CardDisplay = styled.div`
-    // Make display a conditional style between flex and none
-    display: none;
+    display: ${({$cardActive}) => ($cardActive ? 'flex' : 'none')};
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -47,13 +46,3 @@ export const CardDisplay = styled.div`
     background-color: rgba(44,67,109,0.7);
     overflow-y: hidden;
 `
-
-export const CardModal = styled.aside`
-    background-color: #F8CCC5;
-    border: 3px solid #2C436D;
-    border-radius: 30px;
-    text-align: center;
-    width: 60%;
-    height: auto;
-    pointer-events: none;
-`   
