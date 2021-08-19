@@ -3,9 +3,17 @@ import { Holder, HolderHead, Cards, H3, CardDisplay } from './styles'
 import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
 
+import NewCard from '../NewCard'
+
 const CardHolder = ({columns, seedData}) => {
     const [cardActive, setCardActive] = useState(false)
-    const [currentData, setCurrentData] = useState([seedData[0]])
+    const [currentData, setCurrentData] = useState([])
+    const [formData, setFormData] = useState({
+        title: '', 
+        date: '',
+        user: '',
+        column: ''
+    }) 
 
     const cardClick = (event) => {
         event.target.id && sendData(event.target.id)
@@ -18,10 +26,29 @@ const CardHolder = ({columns, seedData}) => {
         ))
     }
 
+    const updateForm = (e) => {
+        const {name, value} = e.target
+        setFormData(formData => ({
+            ...formData,
+            [name]: value
+        }))
+    }
+
+    const addNewForm = (e) => {
+        e.preventDefault()
+        // TO DO: Obtained date from updateForm - need to push to currentDate and update form - May need to use useEffect
+        console.log(currentData)
+        setCurrentData(currentData => (
+            currentData.push(formData)
+        ))
+        console.log(currentData)
+        console.log(formData)
+    }
+
     return(
         <Holder>
             <CardDisplay $cardActive={cardActive} >
-                <CardModalDisplay cardClick={cardClick} currentData={currentData} />
+                {cardActive && <CardModalDisplay cardClick={cardClick} currentData={currentData} /> }
             </CardDisplay>
             <HolderHead>
                 {columns.map((column) => (
@@ -33,6 +60,7 @@ const CardHolder = ({columns, seedData}) => {
                     <Column key={column.id} colNum={column.id} seedData={seedData} cardClick={cardClick} />
                 ))}
             </Cards>
+            <NewCard columns={columns} addNewForm={addNewForm} updateForm={updateForm} />
         </Holder>
     )
 }
