@@ -6,13 +6,18 @@ import CardModalDisplay from '../CardModal'
 import NewCard from '../NewCard'
 
 const CardHolder = ({columns, seedData}) => {
+    // Look into making a new state with the initial data in and then useEffect to update when new item added
+    const [seedsData, setSeedData] = useState(seedData)
+
     const [cardActive, setCardActive] = useState(false)
     const [currentData, setCurrentData] = useState([])
     const [formData, setFormData] = useState({
+        id: seedData.length + 1,
         title: '', 
-        date: '',
+        dateTime: '',
         user: '',
-        column: ''
+        description: 'Some placeholder text',
+        column: '',
     }) 
 
     const cardClick = (event) => {
@@ -36,13 +41,14 @@ const CardHolder = ({columns, seedData}) => {
 
     const addNewForm = (e) => {
         e.preventDefault()
-        // TO DO: Obtained date from updateForm - need to push to currentDate and update form - May need to use useEffect
-        console.log(currentData)
-        setCurrentData(currentData => (
-            currentData.push(formData)
+        // The below doesn't work - look into this
+        setSeedData(seedsDate => (
+            seedsData.push(formData)
         ))
-        console.log(currentData)
-        console.log(formData)
+        // TO DO: Obtained date from updateForm - need to push to currentDate and update form - May need to use useEffect
+        // console.log(formData)
+        // seedData.push(formData)
+        // console.log(seedData)
     }
 
     return(
