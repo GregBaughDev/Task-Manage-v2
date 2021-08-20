@@ -1,24 +1,23 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Holder, HolderHead, Cards, H3, CardDisplay } from './styles'
 import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
-
 import NewCard from '../NewCard'
 
 const CardHolder = ({columns, seedData}) => {
-    // Look into making a new state with the initial data in and then useEffect to update when new item added
-    const [seedsData, setSeedData] = useState(seedData)
-
+    const [seedsData, setSeedsData] = useState(seedData)
     const [cardActive, setCardActive] = useState(false)
     const [currentData, setCurrentData] = useState([])
     const [formData, setFormData] = useState({
-        id: seedData.length + 1,
-        title: '', 
-        dateTime: '',
-        user: '',
-        description: 'Some placeholder text',
-        column: '',
-    }) 
+            /* Initial newform won't be added as the length is incremented
+            after the push so we end up with two cards with the same id */
+            // id: seedsData.length + 1,
+            title: '', 
+            dateTime: '',
+            user: '',
+            description: 'Some placeholder text',
+            column: '',
+        }) 
 
     const cardClick = (event) => {
         event.target.id && sendData(event.target.id)
@@ -41,14 +40,14 @@ const CardHolder = ({columns, seedData}) => {
 
     const addNewForm = (e) => {
         e.preventDefault()
-        // The below doesn't work - look into this
-        setSeedData(seedsDate => (
-            seedsData.push(formData)
+        setFormData(formData => ({
+            ...formData,
+            id: seedsData.length + 1,
+            column: parseInt(formData.column)
+        }))
+        setSeedsData(seedsData => (
+            seedsData = [...seedsData, formData]
         ))
-        // TO DO: Obtained date from updateForm - need to push to currentDate and update form - May need to use useEffect
-        // console.log(formData)
-        // seedData.push(formData)
-        // console.log(seedData)
     }
 
     return(
@@ -63,7 +62,7 @@ const CardHolder = ({columns, seedData}) => {
             </HolderHead>
             <Cards>
                 {columns.map((column) => (
-                    <Column key={column.id} colNum={column.id} seedData={seedData} cardClick={cardClick} />
+                    <Column key={column.id} colNum={column.id} seedsData={seedsData} cardClick={cardClick} />
                 ))}
             </Cards>
             <NewCard columns={columns} addNewForm={addNewForm} updateForm={updateForm} />

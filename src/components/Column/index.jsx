@@ -2,10 +2,10 @@ import React from 'react'
 import { Column } from './styles'
 import TaskCard from '../Card/index'
 
-const Columns = ({seedData, colNum, cardClick}) => {
+const Columns = ({seedsData, colNum, cardClick}) => {
     return (
         <Column>
-            {seedData.map((seed) => (
+            {seedsData.map((seed) => (
                 seed.column === colNum ?
                 <TaskCard key={seed.id} data={seed} cardClick={cardClick} /> : null
                 ))}
