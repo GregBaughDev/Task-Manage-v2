@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { CardDisplay } from '../CardHolder.jsx/styles'
 
 export const Header = styled.header`
     height: 10vh;
@@ -12,10 +13,10 @@ export const Header = styled.header`
 `
 
 export const Img = styled.img`
-    width: 25vw;
+    width: 15vw;
 
     @media (max-width: 700px) {
-        width: 40vw;
+        width: 20vw;
     }
 `
 
@@ -37,4 +38,8 @@ export const Nav = styled.nav`
 
 export const Main = styled.main`
     width: 90vw;
+`
+
+export const NewCardDisplay = styled(CardDisplay)`
+    display: ${({$newCard}) => ($newCard ? 'flex' : 'none')};
 `
