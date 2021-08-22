@@ -1,33 +1,40 @@
 import React from 'react'
+import { NewCardHolder, Form, Input, Textarea, Select } from './styles'
+import { Button, ButtonHolder } from '../CardModal/styles'
 
-const NewCard = ({columns, addNewForm, updateForm}) => {
+const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
     return (
-        <form onSubmit={addNewForm}>
-            <label htmlFor="title">Title
-                <input onChange={updateForm} type="text" name="title" id="title" required />
-            </label>
-            {/* <label htmlFor="date">Start Date
-                <input type="date" name="date" id="date" required />
-            </label>
-            <label htmlFor="date">Finish Date
-                <input type="date" name="date" id="date" required />
-            </label> */}
-            <label htmlFor="dateTime">Date:
-                <input onChange={updateForm} type="text" name="dateTime" id="dateTime" required />
-            </label>
-            <label htmlFor="user">User
-                <input onChange={updateForm} type="text" name="user" id="user" required />
-            </label>
-            <label htmlFor="column-select">Select column
-                <select onChange={updateForm} name="column" id="column-select" required>
-                        <option value="">Select column</option>
-                    {columns.map((column) => (
-                        <option key={column.id} value={column.id}>{column.name}</option>
-                    ))}
-                </select>
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
+        <NewCardHolder>
+            <Form onSubmit={addNewForm}>
+            {/* <Form> */}
+                <label htmlFor="title">Title:</label>
+                    <Input onChange={updateForm} type="text" name="title" id="title" required />
+                {/* <label htmlFor="date">Start Date
+                    <Input type="date" name="date" id="date" required />
+                </label>
+                <label htmlFor="date">Finish Date
+                    <Input type="date" name="date" id="date" required />
+                </label> */}
+                <label htmlFor="dateTime">Date:</label>
+                    <Input onChange={updateForm} type="text" name="dateTime" id="dateTime" required />
+                <label htmlFor="user">User:</label>
+                    <Input onChange={updateForm} type="text" name="user" id="user" required />
+                <label htmlFor="description">Description:</label>
+                    <Textarea></Textarea>
+                <label htmlFor="column-select">Column:</label>
+                    <Select onChange={updateForm} name="column" id="column-select" required>
+                            <option value="">Select column</option>
+                        {columns.map((column) => (
+                            <option key={column.id} value={column.id}>{column.name}</option>
+                        ))}
+                    </Select>
+                <ButtonHolder>
+                    {/* <Button onSubmit={addNewForm} type="submit">Submit</Button> */}
+                    <Button onClick={addNewForm} type="button">Submit</Button>
+                    <Button type="button" onClick={makeNewCard}>Close</Button>
+                </ButtonHolder>
+            </Form>
+        </NewCardHolder>
     )
 }
 

@@ -35,6 +35,8 @@ const TaskPage = () => {
             id: seedsData.length + 1,
             column: parseInt(formData.column)
         }))
+        // Current issue is that the data is added to the array, the modal is closed but now the data doesn't display on the page
+        makeNewCard()
         setSeedsData(seedsData => (
             seedsData = [...seedsData, formData]
         ))
@@ -44,11 +46,13 @@ const TaskPage = () => {
         setNewCard(newCard => !newCard)
     }
 
+    console.log(seedsData)
+
     return (
         <>
             <Header>
                 <NewCardDisplay $newCard={newCard}>
-                    {newCard && <NewCard columns={columns} addNewForm={addNewForm} updateForm={updateForm} />}
+                    {newCard && <NewCard columns={columns} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
