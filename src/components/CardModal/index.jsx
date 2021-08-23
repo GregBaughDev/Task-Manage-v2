@@ -12,6 +12,15 @@ const CardModalDisplay = ({cardClick, currentData}) => {
                 <Button onClick={cardClick}>Close</Button>
                 <Button>Edit</Button>
             </ButtonHolder>
+            {/* TO DO - Sort out edit form */}
+            <form>
+                <label>Title</label>
+                <input type="text">{currentData[0].title}</input>
+                <label>User:</label>
+                <input type="text">{currentData[0].user}</input>
+                <label>Description:</label>
+                <textarea value={currentData[0].description}></textarea>
+            </form>
         </CardModal>
     )
 }
