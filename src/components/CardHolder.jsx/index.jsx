@@ -6,6 +6,7 @@ import CardModalDisplay from '../CardModal'
 const CardHolder = ({columns, seedsData}) => {
     const [cardActive, setCardActive] = useState(false)
     const [currentData, setCurrentData] = useState([])
+    const [editCard, setEditCard] = useState(false)
     
     const cardClick = (event) => {
         event.target.id && sendData(event.target.id)
@@ -18,10 +19,18 @@ const CardHolder = ({columns, seedsData}) => {
         ))
     }
 
+    const cardEdit = () => {
+        setEditCard(editCard => !editCard)
+    }
+
+    const cardEditForm = (event) => {
+        console.dir(event)
+    }
+
     return(
         <Holder>
             <CardDisplay $cardActive={cardActive} >
-                {cardActive && <CardModalDisplay cardClick={cardClick} currentData={currentData} /> }
+                {cardActive && <CardModalDisplay cardClick={cardClick} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} cardEditForm={cardEditForm} /> }
             </CardDisplay>
             <HolderHead>
                 {columns.map((column) => (
