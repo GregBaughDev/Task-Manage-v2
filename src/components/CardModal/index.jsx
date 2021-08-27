@@ -1,8 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { CardModal, H4, H5, H6, Button, ButtonHolder} from './styles'
 import { Form, Input, Textarea, Select } from '../NewCard/styles'
 
-const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, cardEditForm}) => {
+const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, editData}) => {
+    const [editedForm, setEditedForm] = useState(currentData[0])
+
+    const formUpdate = (e) => {
+        e.preventDefault()
+        const {name, value} = e.target
+        setEditedForm(editedForm => ({
+            ...editedForm,
+            [name]: value
+        }))
+    }
+
+    const handleSubmit = () => {
+        editData(editedForm)
+    }
+
     return ( 
         <CardModal>
             {!editCard ?
@@ -18,20 +33,21 @@ const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, 
                 </> : 
                 <Form>
                     <label htmlFor="title">Title:</label>
-                        <Input type="text" name="title" id="title" onChange={cardEditForm} defaultValue={currentData[0].title} />
+                        <Input type="text" name="title" id="title" onChange={formUpdate} defaultValue={currentData[0].title} />
                     <label htmlFor="dateTime">Date:</label>
-                        <Input type="text" name="dateTime" id="dateTime" onChange={cardEditForm} defaultValue={currentData[0].dateTime} />
+                        <Input type="text" name="dateTime" id="dateTime" onChange={formUpdate} defaultValue={currentData[0].dateTime} />
                     <label htmlFor="user">User:</label>
-                        <Input type="text" name="user" id="user" onChange={cardEditForm} defaultValue={currentData[0].user} />
+                        <Input type="text" name="user" id="user" onChange={formUpdate} defaultValue={currentData[0].user} />
                     <label htmlFor="description">Description:</label>
-                        <Textarea onChange={cardEditForm} value={currentData[0].description}></Textarea>
+                        <Textarea id="description" name="description" onChange={formUpdate} defaultValue={currentData[0].description}></Textarea>
                     <label htmlFor="column-select">Column:</label>
-                        <Select name="column" id="column-select" required>
+                        <Select value={currentData[0].column} onChange={formUpdate} name="column" id="column-select" required>
                                 <option value="">Select column</option>
                             {columns.map((column) => (
                                 <option key={column.id} value={column.id}>{column.name}</option>
                             ))}
                         </Select>
+                    <Button onClick={handleSubmit} type="button">Submit</Button>
                 </Form>
             }
         </CardModal>

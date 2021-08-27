@@ -11,7 +11,6 @@ export const CardModal = styled.aside`
     text-align: center;
     width: 60vw;
     height: 60vh;
-    pointer-events: none;
     padding: 3vh 0;
 `   
 

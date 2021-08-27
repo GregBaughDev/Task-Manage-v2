@@ -4,6 +4,10 @@ import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
 
 const CardHolder = ({columns, seedsData}) => {
+    /* TO DO - URGENT - Sort out add card 
+    TO DO - RECEIVED THE UPDATED DATA IN editData
+    Pop the seedsData in state
+    Filter through seedsData and replace with edited data */
     const [cardActive, setCardActive] = useState(false)
     const [currentData, setCurrentData] = useState([])
     const [editCard, setEditCard] = useState(false)
@@ -23,14 +27,14 @@ const CardHolder = ({columns, seedsData}) => {
         setEditCard(editCard => !editCard)
     }
 
-    const cardEditForm = (event) => {
-        console.dir(event)
+    const editData = (data) => {
+        console.log(data)
     }
 
     return(
         <Holder>
             <CardDisplay $cardActive={cardActive} >
-                {cardActive && <CardModalDisplay cardClick={cardClick} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} cardEditForm={cardEditForm} /> }
+                {cardActive && <CardModalDisplay cardClick={cardClick} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} editData={editData} /> }
             </CardDisplay>
             <HolderHead>
                 {columns.map((column) => (
