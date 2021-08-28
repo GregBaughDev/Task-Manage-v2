@@ -8,11 +8,12 @@ import columns from './columns'
 
 const TaskPage = () => {
     const [newCard, setNewCard] = useState(false)
-    const [seedsData, setSeedsData] = useState(seedData)
+    const [hardData, setHardData] = useState(seedData) 
     const [formData, setFormData] = useState({
         /* Initial newform won't be added as the length is incremented
         after the push so we end up with two cards with the same id */
         // id: seedsData.length + 1,
+        id: 11,
         title: '', 
         dateTime: '',
         user: '',
@@ -32,16 +33,30 @@ const TaskPage = () => {
         e.preventDefault()
         setFormData(formData => ({
             ...formData,
-            id: seedsData.length + 1,
+            id: hardData.length + 1,
         }))
-        setSeedsData(seedsData => (
-            seedsData = [...seedsData, formData]
+        setHardData(hardData => (
+            hardData = [...hardData, formData]
         ))
         makeNewCard()
     }
 
     const makeNewCard = () => {
         setNewCard(newCard => !newCard)
+    }
+
+    const editData = (data) => {
+        // LOOK INTO - Copy array, put the new data in and then set hardData to the new array!
+        setHardData(hardData => {
+            for(let hd of hardData){
+                if(hd.id === data.id){
+                    console.log(hardData[hardData.indexOf(hd)])
+                    console.log(data)
+                    // IN PROGRESS - UPDATE ARRAY
+                    return hardData = [...hardData, hardData.splice(hardData[hardData.indexOf(hd)], 1, data)]
+                }
+            }
+        })
     }
 
     return (
@@ -57,7 +72,7 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder seedsData={seedsData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} />
+                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} editData={editData} />
             </Main>
         </>
     )

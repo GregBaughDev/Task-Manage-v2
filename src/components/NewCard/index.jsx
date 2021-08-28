@@ -5,7 +5,6 @@ import { Button, ButtonHolder } from '../CardModal/styles'
 const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
     return (
         <NewCardHolder>
-            {/* <Form onSubmit={addNewForm}> */}
             <Form>
                 <label htmlFor="title">Title:</label>
                     <Input onChange={updateForm} type="text" name="title" id="title" required />
@@ -29,7 +28,6 @@ const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
                         ))}
                     </Select>
                 <ButtonHolder>
-                    {/* <Button onSubmit={addNewForm} type="submit">Submit</Button> */}
                     <Button onClick={addNewForm} type="button">Submit</Button>
                     <Button type="button" onClick={makeNewCard}>Close</Button>
                 </ButtonHolder>

@@ -27,8 +27,8 @@ const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, 
                     <H6>User: {currentData[0].user}</H6>
                     <p>{currentData[0].description}</p>
                     <ButtonHolder>
-                        <Button onClick={cardClick}>Close</Button>
                         <Button onClick={cardEdit}>Edit</Button>
+                        <Button onClick={cardClick}>Close</Button>
                     </ButtonHolder> 
                 </> : 
                 <Form>
@@ -47,7 +47,10 @@ const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, 
                                 <option key={column.id} value={column.id}>{column.name}</option>
                             ))}
                         </Select>
-                    <Button onClick={handleSubmit} type="button">Submit</Button>
+                    <ButtonHolder>
+                        <Button onClick={handleSubmit} type="button">Submit</Button>
+                        <Button onClick={cardClick}>Close</Button>
+                    </ButtonHolder>
                 </Form>
             }
         </CardModal>
