@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { CardModal, H4, H5, H6, Button, ButtonHolder} from './styles'
 import { Form, Input, Textarea, Select } from '../NewCard/styles'
 
-const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, editData}) => {
+const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCard, editData}) => {
     const [editedForm, setEditedForm] = useState(currentData[0])
 
     const formUpdate = (e) => {
@@ -12,6 +12,11 @@ const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, 
             ...editedForm,
             [name]: value
         }))
+    }
+
+    const handleClose = () => {
+        closeViewEdit()
+        cardEdit()
     }
 
     const handleSubmit = () => {
@@ -28,7 +33,7 @@ const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, 
                     <p>{currentData[0].description}</p>
                     <ButtonHolder>
                         <Button onClick={cardEdit}>Edit</Button>
-                        <Button onClick={cardClick}>Close</Button>
+                        <Button onClick={handleClose}>Close</Button>
                     </ButtonHolder> 
                 </> : 
                 <Form>
@@ -49,7 +54,7 @@ const CardModalDisplay = ({cardClick, currentData, columns, cardEdit, editCard, 
                         </Select>
                     <ButtonHolder>
                         <Button onClick={handleSubmit} type="button">Submit</Button>
-                        <Button onClick={cardClick}>Close</Button>
+                        <Button onClick={handleClose}>Close</Button>
                     </ButtonHolder>
                 </Form>
             }

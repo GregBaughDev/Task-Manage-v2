@@ -7,8 +7,13 @@ import seedData from './seeds'
 import columns from './columns'
 
 const TaskPage = () => {
+    // State for new card in progress
     const [newCard, setNewCard] = useState(false)
+    // Seed Data passed into state
     const [hardData, setHardData] = useState(seedData) 
+    // State for handling viewing of a card
+    const [cardActive, setCardActive] = useState(false)
+    // State for handling adding a new card
     const [formData, setFormData] = useState({
         /* Initial newform won't be added as the length is incremented
         after the push so we end up with two cards with the same id */
@@ -21,6 +26,7 @@ const TaskPage = () => {
         column: '',
     }) 
 
+    // Function to handle the new card data
     const updateForm = (e) => {
         const {name, value} = e.target
         setFormData(formData => ({
@@ -29,6 +35,7 @@ const TaskPage = () => {
         }))
     }
 
+    // Function to handle adding the new card to the seed data
     const addNewForm = (e) => {
         e.preventDefault()
         setFormData(formData => ({
@@ -41,22 +48,28 @@ const TaskPage = () => {
         makeNewCard()
     }
 
+    // Function to change the view if a card is not being added
     const makeNewCard = () => {
         setNewCard(newCard => !newCard)
     }
 
+    // Function to handle editing a card and replacing in the array
     const editData = (data) => {
-        // LOOK INTO - Copy array, put the new data in and then set hardData to the new array!
-        setHardData(hardData => {
-            for(let hd of hardData){
-                if(hd.id === data.id){
-                    console.log(hardData[hardData.indexOf(hd)])
-                    console.log(data)
-                    // IN PROGRESS - UPDATE ARRAY
-                    return hardData = [...hardData, hardData.splice(hardData[hardData.indexOf(hd)], 1, data)]
-                }
+        const tempArray = [...hardData]
+        for(let temp of tempArray){
+            if(temp.id === data.id){
+                tempArray[tempArray.indexOf(temp)] = data
             }
-        })
+        }
+        setHardData(hardData => (
+            hardData = tempArray
+        ))
+        closeViewEdit()
+    }
+
+    // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
+    const closeViewEdit = () => {
+        setCardActive(cardActive => !cardActive)
     }
 
     return (
@@ -72,7 +85,7 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} editData={editData} />
+                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} />
             </Main>
         </>
     )

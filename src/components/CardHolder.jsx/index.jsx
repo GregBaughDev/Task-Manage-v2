@@ -3,18 +3,15 @@ import { Holder, HolderHead, Cards, H3, CardDisplay } from './styles'
 import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
 
-const CardHolder = ({columns, hardData, editData}) => {
-    /* TO DO - RECEIVED THE UPDATED DATA IN editData
-    Pop the seedsData in state
-    Filter through seedsData and replace with edited data
-    TO DO - Close edit card if edit cancelled */
-    const [cardActive, setCardActive] = useState(false)
+const CardHolder = ({columns, hardData, editData, closeViewEdit, cardActive}) => {
     const [currentData, setCurrentData] = useState([])
     const [editCard, setEditCard] = useState(false)
     
+    // Function to handle passing currently clicked card to modal
     const cardClick = (event) => {
         event.target.id && sendData(event.target.id)
-        setCardActive(cardActive => !cardActive)
+        // TO DO: This is now causing an issue when the card is opened and closed
+        closeViewEdit()
     }
 
     const sendData = (targId) => {
@@ -30,7 +27,7 @@ const CardHolder = ({columns, hardData, editData}) => {
     return(
         <Holder>
             <CardDisplay $cardActive={cardActive} >
-                {cardActive && <CardModalDisplay cardClick={cardClick} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} editData={editData} /> }
+                {cardActive && <CardModalDisplay closeViewEdit={closeViewEdit} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} editData={editData} /> }
             </CardDisplay>
             <HolderHead>
                 {columns.map((column) => (

@@ -57,7 +57,7 @@ module.exports = [
     },
     {
         id: 8,
-        title: 'Eigth Task',
+        title: 'Eighth Task',
         dateTime: '17th Jan',
         user: 'Michael',
         description: "Sit and stare fall asleep upside-down. Purr lick arm hair, love you, then bite you. Ooh, are those your $250 dollar sandals? lemme use that as my litter box scratch me now! stop scratching me!. Chase mice catching very fast laser pointer or see owner, run in terror i am the best hide when",
