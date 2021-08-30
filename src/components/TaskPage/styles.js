@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { CardDisplay } from '../CardHolder.jsx/styles'
+import { CardDisplay } from '../CardHolder/styles'
 
 export const Header = styled.header`
     height: 10vh;

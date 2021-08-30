@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Header, Img, Nav, Main, NewCardDisplay } from './styles'
-import CardHolder from '../CardHolder.jsx'
+import CardHolder from '../CardHolder/index.jsx'
 import NewCard from '../NewCard/index'
 import logo from '../../public/img/TMlogo.png'
 import seedData from './seeds'
