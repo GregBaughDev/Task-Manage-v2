@@ -2,9 +2,11 @@ import React, {useState} from 'react'
 import { CardModal, H4, H5, H6, Button, ButtonHolder} from './styles'
 import { Form, Input, Textarea, Select } from '../NewCard/styles'
 
-const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCard, editData}) => {
+const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCard, editData, handleDelete}) => {
+    // editedForm is the current form data prior to being edited
     const [editedForm, setEditedForm] = useState(currentData[0])
 
+    // The below handles the updating of the form
     const formUpdate = (e) => {
         e.preventDefault()
         const {name, value} = e.target
@@ -14,11 +16,18 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
         }))
     }
 
+    /* The below handles closing the card - A check is undertaken to check if the card
+    is in the process of being edited */
     const handleClose = () => {
-        closeViewEdit()
-        cardEdit()
+        if(editCard){
+            cardEdit()
+            closeViewEdit()
+        } else {
+            closeViewEdit()
+        }
     }
 
+    // The below passes the edited form data to the editData function in the TaskPage component
     const handleSubmit = () => {
         editData(editedForm)
     }
@@ -32,8 +41,8 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
                     <H6>User: {currentData[0].user}</H6>
                     <p>{currentData[0].description}</p>
                     <ButtonHolder>
-                        <Button onClick={cardEdit}>Edit</Button>
-                        <Button onClick={handleClose}>Close</Button>
+                        <Button type="button" onClick={cardEdit}>Edit</Button>
+                        <Button type="button" onClick={handleClose}>Close</Button>
                     </ButtonHolder> 
                 </> : 
                 <Form>
@@ -54,7 +63,8 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
                         </Select>
                     <ButtonHolder>
                         <Button onClick={handleSubmit} type="button">Submit</Button>
-                        <Button onClick={handleClose}>Close</Button>
+                        <Button onClick={handleDelete(currentData[0].id)} type="button">Delete</Button>
+                        <Button onClick={handleClose} type="button">Close</Button>
                     </ButtonHolder>
                 </Form>
             }

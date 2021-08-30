@@ -67,6 +67,18 @@ const TaskPage = () => {
         closeViewEdit()
     }
 
+    // Function to handle deleting a card
+    const handleDelete = (id) => {
+        let tempArray = [...hardData]
+        // tempArray = tempArray.filter(data => data.id !== id)
+        // setHardData(hardData => (
+        //     hardData = tempArray
+        // ))
+        setHardData(hardData => (
+            hardData = tempArray.filter(data => data.id !== id)
+        ))
+    }
+
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
     const closeViewEdit = () => {
         setCardActive(cardActive => !cardActive)
@@ -85,7 +97,7 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} />
+                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
             </Main>
         </>
     )
