@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Header, Img, Nav, Main, NewCardDisplay } from './styles'
 import CardHolder from '../CardHolder.jsx'
 import NewCard from '../NewCard/index'
@@ -68,15 +68,12 @@ const TaskPage = () => {
     }
 
     // Function to handle deleting a card
-    const handleDelete = (id) => {
+    const handleDelete = (e, id) => {
         let tempArray = [...hardData]
-        // tempArray = tempArray.filter(data => data.id !== id)
-        // setHardData(hardData => (
-        //     hardData = tempArray
-        // ))
         setHardData(hardData => (
             hardData = tempArray.filter(data => data.id !== id)
         ))
+        closeViewEdit()
     }
 
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
