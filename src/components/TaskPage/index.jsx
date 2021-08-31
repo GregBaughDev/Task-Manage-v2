@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { Header, Img, Nav, Main, NewCardDisplay } from './styles'
+import { useState } from 'react'
+import { Header, Img, Nav, Main, NewCardDisplay, P } from './styles'
 import CardHolder from '../CardHolder/index.jsx'
 import NewCard from '../NewCard/index'
+import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
 import seedData from './seeds'
 import columns from './columns'
@@ -9,8 +10,14 @@ import columns from './columns'
 const TaskPage = () => {
     // State for new card in progress
     const [newCard, setNewCard] = useState(false)
-    // Seed Data passed into state
+    // State for column update in progress
+    const [updateCol, setUpdateCol] = useState(false)
+    // State for bg modal
+    const [modal, setModal] = useState(false)
+    // Seed data passed into state
     const [hardData, setHardData] = useState(seedData) 
+    // Column data passed into state
+    const [colData, setColData] = useState(columns)
     // State for handling viewing of a card
     const [cardActive, setCardActive] = useState(false)
     // State for handling adding a new card
@@ -50,7 +57,14 @@ const TaskPage = () => {
 
     // Function to change the view if a card is not being added
     const makeNewCard = () => {
-        setNewCard(newCard => !newCard)
+        setModal(!modal)
+        setNewCard(!newCard)
+    }
+
+    // Function to make new column
+    const editColumn = () => {
+        setModal(!modal)
+        setUpdateCol(!updateCol)
     }
 
     // Function to handle editing a card and replacing in the array
@@ -78,23 +92,25 @@ const TaskPage = () => {
 
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
     const closeViewEdit = () => {
-        setCardActive(cardActive => !cardActive)
+        setCardActive(!cardActive)
     }
 
     return (
         <>
             <Header>
-                <NewCardDisplay $newCard={newCard}>
-                    {newCard && <NewCard columns={columns} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
+                <NewCardDisplay $modal={modal}>
+                    {newCard && <NewCard columns={colData} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
+                    {updateCol && <UpdateColumn columns={colData} />}
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
-                   <p onClick={makeNewCard}>New Task</p>
-                   <p>Log Out</p>
+                   <P onClick={makeNewCard}>New Task</P>
+                   <P onClick={editColumn}>Edit Columns</P>
+                   <P>Log Out</P>
                </Nav>
             </Header>
             <Main>
-                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={columns} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
+                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={colData} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
             </Main>
         </>
     )

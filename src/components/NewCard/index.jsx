@@ -1,4 +1,3 @@
-import React from 'react'
 import { NewCardHolder, Form, Input, Textarea, Select } from './styles'
 import { Button, ButtonHolder } from '../CardModal/styles'
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import { CardModal, H4, H5, H6, Button, ButtonHolder} from './styles'
 import { Form, Input, Textarea, Select } from '../NewCard/styles'
 

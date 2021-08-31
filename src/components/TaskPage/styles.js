@@ -21,7 +21,7 @@ export const Img = styled.img`
 `
 
 export const Nav = styled.nav`
-    width: 25vw;
+    width: 40vw;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -36,10 +36,20 @@ export const Nav = styled.nav`
     }
 `   
 
+export const P = styled.nav`
+    padding: 1vh 1vw;
+    border-radius: 20px;
+
+    &:hover {
+        background-color: #EBD3A7;
+        cursor: pointer;
+    }
+`
+
 export const Main = styled.main`
     width: 90vw;
 `
 
 export const NewCardDisplay = styled(CardDisplay)`
-    display: ${({$newCard}) => ($newCard ? 'flex' : 'none')};
+    display: ${({$modal}) => ($modal ? 'flex' : 'none')};
 `

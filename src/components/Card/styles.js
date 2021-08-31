@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Card = styled.section`
-    padding: 2vh 0;
+    padding: 2vh 5px;
     flex-direction: column;
     display: flex;
     align-items: center;

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Column } from './styles'
 import TaskCard from '../Card/index'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card, H4 } from './styles'
 
 const TaskCard = ({data, cardClick}) => {

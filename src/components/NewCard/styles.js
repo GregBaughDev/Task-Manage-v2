@@ -7,12 +7,11 @@ export const NewCardHolder = styled.section`
     text-align: center;
     width: 60%;
     height: 75%;
-    /* display: flex;
-    align-items: center; */
+    display: flex;
+    align-items: center;
 `
 
 export const Form = styled.form`
-    padding: 5% 0;
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;
@@ -34,9 +33,10 @@ export const Input = styled.input`
 export const Textarea = styled.textarea`
     border: 5px solid #FDDEA4;
     border-radius: 20px 0 0 20px;
-    width: 80%;
-    padding: 2vh 2vw;
-    height: 25%;
+    width: 90%;
+    padding: 1vh 1vw;
+    min-height: 100px;
+    height: 4vh;
     resize: none;
     font-family: Hauora;
     margin: 1vh 0;

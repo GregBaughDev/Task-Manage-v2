@@ -10,8 +10,9 @@ export const CardModal = styled.aside`
     border-radius: 30px;
     text-align: center;
     width: 60vw;
-    height: 60vh;
-    padding: 3vh 0;
+    min-height: 60vh;
+    height: auto;
+    padding: 3vh 2vw;
 `   
 
 export const H4 = styled.h4`
@@ -37,7 +38,7 @@ export const H6 = styled.h6`
 
 export const ButtonHolder = styled.div`
     display: flex;
-    width: 80%;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
 `
@@ -47,10 +48,15 @@ export const Button = styled.button`
     pointer-events: all;
     font-family: Hauora;
     color: #2C436D;
-    width: 40%;
+    width: 30%;
     background-color: #DAEDDE;
     border: none;
     height: 5vh;
     border-radius: 25px;
     margin: 0 auto;
+
+    &:hover {
+        background-color: #C5C9C6;
+        cursor: pointer;
+    }
 `

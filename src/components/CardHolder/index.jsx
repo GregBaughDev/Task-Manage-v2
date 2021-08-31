@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Holder, HolderHead, Cards, H3, CardDisplay } from './styles'
 import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
@@ -24,7 +24,7 @@ const CardHolder = ({columns, hardData, editData, closeViewEdit, cardActive, han
 
     // The below changes the editCard state to it's opposite
     const cardEdit = () => {
-        setEditCard(editCard => !editCard)
+        setEditCard(!editCard)
     }
 
     return(
