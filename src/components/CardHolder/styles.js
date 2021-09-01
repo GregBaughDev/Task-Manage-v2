@@ -17,7 +17,7 @@ export const HolderHead = styled.div`
     justify-content: space-around;
     width: 100%;
     height: 5vh;
-    border-radius: 12px;
+    border-radius: 12px 12px 0 0;
     background-color: #DAEDDE;
 `
 
