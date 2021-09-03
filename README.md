@@ -3,7 +3,7 @@
 A task management app built with React. This is a rebuild of a previous attempt of this application.
 
 ## To Do
-[] Add new column functionality
+[] Add delete column functionality - delete the cards in that column
 [] Add validations
     [] Change 'user' to select menu
 [] Update styles so scolling works on x & y axis

@@ -98,7 +98,7 @@ const TaskPage = () => {
     // Function to handle adding the new column to the column data
     const addNewColumn = (e) => {
         e.preventDefault()
-        // TO DO: Look into below as ID not increasing and sort styles for new column
+        // TO DO: Look into below as ID is adding two 5's and sort styles for new column
         setColForm(colForm => ({
             ...colForm,
             id: colData.length + 1,
@@ -106,7 +106,20 @@ const TaskPage = () => {
         setColData(colData => (
             colData = [...colData, colForm]
         ))
-        console.log(colData)
+        editColumn()
+    }
+
+    // Function to handle editing a column and replacing in the array
+    const addColumnUpdate = (data) => {
+        const tempArray = [...colData]
+        for(let temp of tempArray){
+            if(temp.id === data.id){
+                tempArray[tempArray.indexOf(temp)] = data
+            }
+        }
+        setColData(colData => (
+            colData = tempArray
+        ))
     }
 
     // Function to handle deleting a card
@@ -128,7 +141,7 @@ const TaskPage = () => {
             <Header>
                 <NewCardDisplay $modal={modal}>
                     {newCard && <NewCard columns={colData} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
-                    {updateCol && <UpdateColumn updateColumn={updateColumn} addNewColumn={addNewColumn} columns={colData} />}
+                    {updateCol && <UpdateColumn updateColumn={updateColumn} addNewColumn={addNewColumn} columns={colData} addColumnUpdate={addColumnUpdate} editColumn={editColumn}  />}
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
