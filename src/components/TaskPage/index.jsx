@@ -18,6 +18,11 @@ const TaskPage = () => {
     const [hardData, setHardData] = useState(seedData) 
     // Column data passed into state
     const [colData, setColData] = useState(columns)
+    // State for handling adding a new column
+    const [colForm, setColForm] = useState({
+        id: 5,
+        name: '',
+    })
     // State for handling viewing of a card
     const [cardActive, setCardActive] = useState(false)
     // State for handling adding a new card
@@ -61,7 +66,7 @@ const TaskPage = () => {
         setNewCard(!newCard)
     }
 
-    // Function to make new column
+    // Function to handle new column click
     const editColumn = () => {
         setModal(!modal)
         setUpdateCol(!updateCol)
@@ -79,6 +84,29 @@ const TaskPage = () => {
             hardData = tempArray
         ))
         closeViewEdit()
+    }
+    
+    // Function to handle the new column data
+    const updateColumn = (e) => {
+        const {name, value} = e.target
+        setColForm(colForm => ({
+            ...colForm,
+            [name]: value
+        }))
+    }
+
+    // Function to handle adding the new column to the column data
+    const addNewColumn = (e) => {
+        e.preventDefault()
+        // TO DO: Look into below as ID not increasing and sort styles for new column
+        setColForm(colForm => ({
+            ...colForm,
+            id: colData.length + 1,
+        }))
+        setColData(colData => (
+            colData = [...colData, colForm]
+        ))
+        console.log(colData)
     }
 
     // Function to handle deleting a card
@@ -100,7 +128,7 @@ const TaskPage = () => {
             <Header>
                 <NewCardDisplay $modal={modal}>
                     {newCard && <NewCard columns={colData} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
-                    {updateCol && <UpdateColumn columns={colData} />}
+                    {updateCol && <UpdateColumn updateColumn={updateColumn} addNewColumn={addNewColumn} columns={colData} />}
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
