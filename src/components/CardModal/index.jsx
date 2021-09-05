@@ -63,7 +63,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
                         </Select>
                     <ButtonHolder>
                         <Button onClick={handleSubmit} type="button">Submit</Button>
-                        <Button onClick={e => handleDelete(e, currentData[0].id)} type="button">Delete</Button>
+                        <Button onClick={e => handleDelete(currentData[0].id)} type="button">Delete</Button>
                         <Button onClick={handleClose} type="button">Close</Button>
                     </ButtonHolder>
                 </Form>
