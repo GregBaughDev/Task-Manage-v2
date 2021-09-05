@@ -98,7 +98,7 @@ const TaskPage = () => {
     // Function to handle adding the new column to the column data
     const addNewColumn = (e) => {
         e.preventDefault()
-        // TO DO: Look into below as ID not increasing and sort styles for new column
+        // TO DO: Look into below as ID is adding two 5's and sort styles for new column
         setColForm(colForm => ({
             ...colForm,
             id: colData.length + 1,
@@ -106,16 +106,41 @@ const TaskPage = () => {
         setColData(colData => (
             colData = [...colData, colForm]
         ))
-        console.log(colData)
+        editColumn()
+    }
+
+    // Function to handle editing a column and replacing in the array
+    const addColumnUpdate = (data) => {
+        const tempArray = [...colData]
+        for(let temp of tempArray){
+            if(temp.id === data.id){
+                tempArray[tempArray.indexOf(temp)] = data
+            }
+        }
+        setColData(colData => (
+            colData = tempArray
+        ))
     }
 
     // Function to handle deleting a card
-    const handleDelete = (e, id) => {
+    const handleDelete = (id) => {
         let tempArray = [...hardData]
         setHardData(hardData => (
             hardData = tempArray.filter(data => data.id !== id)
         ))
         closeViewEdit()
+    }
+
+    // Function to handle deleting a column
+    const handleColDelete = (id) => {
+        // Delete the column
+        let tempColArray = [...colData]
+        setColData(colData => (
+            colData = tempColArray.filter(data => data.id !== id)
+        ))
+        // Delete the cards in the column
+        // TO DO: Cards not deleted from column - update when connected to backend
+        editColumn()
     }
 
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
@@ -128,7 +153,7 @@ const TaskPage = () => {
             <Header>
                 <NewCardDisplay $modal={modal}>
                     {newCard && <NewCard columns={colData} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
-                    {updateCol && <UpdateColumn updateColumn={updateColumn} addNewColumn={addNewColumn} columns={colData} />}
+                    {updateCol && <UpdateColumn updateColumn={updateColumn} addNewColumn={addNewColumn} columns={colData} addColumnUpdate={addColumnUpdate} editColumn={editColumn} handleColDelete={handleColDelete} />}
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>

@@ -27,3 +27,11 @@ export const ColumnList = styled.div`
     align-items: center;
     background: white;
 `
+
+export const ColDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+`

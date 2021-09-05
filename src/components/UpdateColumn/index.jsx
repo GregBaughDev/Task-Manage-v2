@@ -1,14 +1,29 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { NewCardHolder, Input } from '../NewCard/styles'
 import { Button, ButtonHolder } from '../CardModal/styles'
-import { UpdateHolder, P, ColumnList } from './styles'
+import { UpdateHolder, P, ColumnList, ColDiv } from './styles'
+import { v4 } from 'uuid'
 
-const UpdateColumn = ({columns, updateColumn, addNewColumn}) => {
+const UpdateColumn = ({columns, updateColumn, addNewColumn, addColumnUpdate, editColumn, handleColDelete}) => {
     // Editing column names state
     const [colEdit, setColEdit] = useState(false)
     // Adding a new column state
     const [addCol, setAddCol] = useState(false)
+    // Currently edited column
+    const [editedCol, setEditedCol] = useState(null)
 
+    // The below handles updating the column name
+    // TO DO: Functionality so only one column can be updated at a time
+    const columnUpdate = (e, col) => {
+        e.preventDefault()
+        const {name, value} = e.target
+        setEditedCol(editedCol => ({
+            id: col,
+            [name]: value,
+        }))
+    }
+
+    // TO DO: Delete column functionality
     // The below handles the click function depending on the button
     const handleClick = (e) => {
         if(e.target.innerText === "Add Column"){
@@ -16,40 +31,47 @@ const UpdateColumn = ({columns, updateColumn, addNewColumn}) => {
         }
         
         if(e.target.innerText === "Edit"){
-            // setAddCol(!addCol)
+            if(addCol){
+                setAddCol(!addCol)
+            }
             setColEdit(!colEdit)
-        }
-        //TO DO: SIMILAR TO NEW CARD AND PASS INFO TO PARENT ELEMENT
-        if(e.target.innerText === "Save Column"){
-            addNewColumn()
         }
         
         if(e.target.innerText === "Close"){
-            // Close the modal
-            console.log("Close the modal")
+            editColumn()
         }
 
-        if(e.target.innerText === "Save"){
-            // Save edits
+        if(e.target.innerText === "Delete"){
+            // Delete functionality
+            console.log('e')
         }
     }
 
+    const handleEdit = () => {
+        if(editedCol !== null){
+            addColumnUpdate(editedCol)
+            editColumn()
+        }
+    }
 
     return (
         <NewCardHolder>
             <UpdateHolder>
                 <h3>Columns</h3>
                 <ColumnList>
-                    {addCol && <Input type="text" onChange={updateColumn} name="name" id="name" placeholder="Enter new column name" />}
+                    {addCol && <Input type="text" onChange={updateColumn} name="name" placeholder="Enter new column name" />}
                     {columns.map((col) => (
                         colEdit ? 
-                            <Input key={col.id} type="text" defaultValue={col.name}/> :
+                            <ColDiv key={col.id}>
+                                <Input key={col.id} type="text" onChange={e => columnUpdate(e, col.id)} defaultValue={col.name} name="name" />
+                                <Button key={col.id} onClick={e => handleColDelete(col.id)}>Delete</Button>
+                            </ColDiv> :
                             <P key={col.id}>{col.name}</P>
                         ))}
                 </ColumnList>
                 <ButtonHolder>
                     {colEdit ? 
-                        <Button onClick={handleClick}>Save</Button> :
+                        <Button onClick={handleEdit}>Save</Button> :
                         <>
                             <Button onClick={handleClick}>Edit</Button>
                             {!addCol ? 
