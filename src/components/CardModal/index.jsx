@@ -56,7 +56,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
                         <Textarea id="description" name="description" onChange={formUpdate} defaultValue={currentData[0].description}></Textarea>
                     <label htmlFor="column-select">Column:</label>
                         <Select value={currentData[0].column} onChange={formUpdate} name="column" id="column-select" required>
-                                <option value="">Select column</option>
+                                <option value="" disabled>Select column</option>
                             {columns.map((column) => (
                                 <option key={column.id} value={column.id}>{column.name}</option>
                             ))}

@@ -9,6 +9,8 @@ export const Holder = styled.div`
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    /* Disable the below for version 1 */
+    /* overflow-x: scroll; */
 `
 
 export const HolderHead = styled.div`
@@ -22,6 +24,9 @@ export const HolderHead = styled.div`
 `
 
 export const H3 = styled.h3`
+    min-width: 23%;
+    /* Below for v2 */
+    /* min-width: 15vw; */
     width: 25%;
     text-align: center;
 `

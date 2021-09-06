@@ -32,7 +32,7 @@ const CardHolder = ({columns, hardData, editData, closeViewEdit, cardActive, han
             <CardDisplay $cardActive={cardActive} >
                 {cardActive && <CardModalDisplay closeViewEdit={closeViewEdit} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} editData={editData} handleDelete={handleDelete} /> }
             </CardDisplay>
-            {/* TO DO - Move below into cards section for styling */}
+            {/* TO DO V2 - Move below into cards section for styling */}
             <HolderHead>
                 {columns.map((column) => (
                         <H3 key={column.id}>{column.name}</H3>

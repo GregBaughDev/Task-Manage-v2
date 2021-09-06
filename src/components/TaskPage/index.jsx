@@ -35,9 +35,9 @@ const TaskPage = () => {
         dateTime: '',
         user: '',
         description: 'Some placeholder text',
-        column: '',
+        column: 1,
     }) 
-
+ 
     // Function to handle the new card data
     const updateForm = (e) => {
         const {name, value} = e.target
@@ -50,6 +50,7 @@ const TaskPage = () => {
     // Function to handle adding the new card to the seed data
     const addNewForm = (e) => {
         e.preventDefault()
+        // TO DO: Sort below validations
         setFormData(formData => ({
             ...formData,
             id: hardData.length + 1,

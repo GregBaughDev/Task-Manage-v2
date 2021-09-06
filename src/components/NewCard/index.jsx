@@ -21,7 +21,7 @@ const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
                     <Textarea id="description" name="description"></Textarea>
                 <label htmlFor="column-select">Column:</label>
                     <Select onChange={updateForm} name="column" id="column-select" required>
-                            <option value="">Select column</option>
+                            <option disabled>Select column</option>
                         {columns.map((column) => (
                             <option key={column.id} value={column.id}>{column.name}</option>
                         ))}
