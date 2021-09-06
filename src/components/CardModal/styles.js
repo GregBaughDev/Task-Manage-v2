@@ -54,6 +54,7 @@ export const Button = styled.button`
     height: 5vh;
     border-radius: 25px;
     margin: 0 auto;
+    transition: background-color 0.5s;
 
     &:hover {
         background-color: #C5C9C6;

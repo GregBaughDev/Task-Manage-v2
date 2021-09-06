@@ -39,6 +39,7 @@ export const Nav = styled.nav`
 export const P = styled.nav`
     padding: 1vh 1vw;
     border-radius: 20px;
+    transition: background-color 0.5s;
 
     &:hover {
         background-color: #EBD3A7;
