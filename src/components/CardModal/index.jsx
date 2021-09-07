@@ -31,7 +31,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
     const handleSubmit = () => {
         editData(editedForm)
     }
-
+ 
     return ( 
         <CardModal>
             {!editCard ?

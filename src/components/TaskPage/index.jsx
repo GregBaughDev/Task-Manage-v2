@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Header, Img, Nav, Main, NewCardDisplay, P } from './styles'
 import CardHolder from '../CardHolder/index.jsx'
 import NewCard from '../NewCard/index'
 import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
-import seedData from './seeds'
 import columns from './columns'
 
 const TaskPage = () => {
@@ -15,7 +14,7 @@ const TaskPage = () => {
     // State for bg modal
     const [modal, setModal] = useState(false)
     // Seed data passed into state
-    const [hardData, setHardData] = useState(seedData) 
+    const [dbData, setDbData] = useState([]) 
     // Column data passed into state
     const [colData, setColData] = useState(columns)
     // State for handling adding a new column
@@ -27,10 +26,6 @@ const TaskPage = () => {
     const [cardActive, setCardActive] = useState(false)
     // State for handling adding a new card
     const [formData, setFormData] = useState({
-        /* Initial newform won't be added as the length is incremented
-        after the push so we end up with two cards with the same id */
-        // id: seedsData.length + 1,
-        id: 11,
         title: '', 
         dateTime: '',
         user: '',
@@ -41,23 +36,27 @@ const TaskPage = () => {
     // Function to handle the new card data
     const updateForm = (e) => {
         const {name, value} = e.target
+        // TO DO: Sort out form validations
         setFormData(formData => ({
             ...formData,
             [name]: value
         }))
     }
 
-    // Function to handle adding the new card to the seed data
-    const addNewForm = (e) => {
+    // IN PROGRESS
+    // Function to handle adding the new card to the db
+    const addNewForm = async (e) => {
         e.preventDefault()
-        // TO DO: Sort below validations
-        setFormData(formData => ({
-            ...formData,
-            id: hardData.length + 1,
-        }))
-        setHardData(hardData => (
-            hardData = [...hardData, formData]
-        ))
+        await fetch("/cards", {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(res => console.log(res))
+        .catch(e => console.log(e))
         makeNewCard()
     }
 
@@ -75,14 +74,14 @@ const TaskPage = () => {
 
     // Function to handle editing a card and replacing in the array
     const editData = (data) => {
-        const tempArray = [...hardData]
+        const tempArray = [...dbData]
         for(let temp of tempArray){
             if(temp.id === data.id){
                 tempArray[tempArray.indexOf(temp)] = data
             }
         }
-        setHardData(hardData => (
-            hardData = tempArray
+        setDbData(dbData => (
+            dbData = tempArray
         ))
         closeViewEdit()
     }
@@ -125,9 +124,9 @@ const TaskPage = () => {
 
     // Function to handle deleting a card
     const handleDelete = (id) => {
-        let tempArray = [...hardData]
-        setHardData(hardData => (
-            hardData = tempArray.filter(data => data.id !== id)
+        let tempArray = [...dbData]
+        setDbData(dbData => (
+            dbData = tempArray.filter(data => data.id !== id)
         ))
         closeViewEdit()
     }
@@ -149,6 +148,20 @@ const TaskPage = () => {
         setCardActive(!cardActive)
     }
 
+    // SERVER TESTING
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/home')
+                const cards = await response.json()
+                setDbData(cards)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [])
+
     return (
         <>
             <Header>
@@ -164,7 +177,7 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={colData} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
+                <CardHolder dbData={dbData} updateForm={updateForm} addNewForm={addNewForm} columns={colData} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
             </Main>
         </>
     )

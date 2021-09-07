@@ -3,7 +3,7 @@ import { Holder, HolderHead, Cards, H3, CardDisplay } from './styles'
 import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
 
-const CardHolder = ({columns, hardData, editData, closeViewEdit, cardActive, handleDelete}) => {
+const CardHolder = ({columns, dbData, editData, closeViewEdit, cardActive, handleDelete}) => {
     // currentData is the currently displayed data in the CardModalDisplay component
     const [currentData, setCurrentData] = useState([])
     // editCard is a conditional to check if the card is being edited
@@ -18,7 +18,7 @@ const CardHolder = ({columns, hardData, editData, closeViewEdit, cardActive, han
     // The below takes an ID as an argument and returns the data to display in the CardModalDisplay component
     const sendData = (targId) => {
         setCurrentData(currentData => (
-            currentData = hardData.filter(data => data.id === parseInt(targId))
+            currentData = dbData.filter(data => data._id === targId)
         ))
     }
 
@@ -40,7 +40,7 @@ const CardHolder = ({columns, hardData, editData, closeViewEdit, cardActive, han
             </HolderHead>
             <Cards>
                 {columns.map((column) => (
-                    <Column key={column.id} colNum={column.id} hardData={hardData} cardClick={cardClick} />
+                    <Column key={column.id} colNum={column.id} dbData={dbData} cardClick={cardClick} />
                 ))}
             </Cards>
         </Holder>
