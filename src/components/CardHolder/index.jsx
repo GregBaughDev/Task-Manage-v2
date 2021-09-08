@@ -22,15 +22,10 @@ const CardHolder = ({columns, dbData, editData, closeViewEdit, cardActive, handl
         ))
     }
 
-    // The below changes the editCard state to it's opposite
-    const cardEdit = () => {
-        setEditCard(!editCard)
-    }
-
     return(
         <Holder>
             <CardDisplay $cardActive={cardActive} >
-                {cardActive && <CardModalDisplay closeViewEdit={closeViewEdit} currentData={currentData} columns={columns} cardEdit={cardEdit} editCard={editCard} editData={editData} handleDelete={handleDelete} /> }
+                {cardActive && <CardModalDisplay closeViewEdit={closeViewEdit} currentData={currentData} columns={columns} setEditCard={setEditCard} editCard={editCard} editData={editData} handleDelete={handleDelete} /> }
             </CardDisplay>
             {/* TO DO V2 - Move below into cards section for styling */}
             <HolderHead>

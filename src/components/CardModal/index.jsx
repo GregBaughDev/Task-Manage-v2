@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { CardModal, H4, H5, H6, Button, ButtonHolder} from './styles'
 import { Form, Input, Textarea, Select } from '../NewCard/styles'
 
-const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCard, editData, handleDelete}) => {
+const CardModalDisplay = ({closeViewEdit, currentData, columns, setEditCard, editCard, editData, handleDelete}) => {
     // editedForm is the current form data prior to being edited
     const [editedForm, setEditedForm] = useState(currentData[0])
     // valid handles form validation
@@ -22,7 +22,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
     is in the process of being edited */
     const handleClose = () => {
         if(editCard){
-            cardEdit()
+            setEditCard(false)
             closeViewEdit()
         } else {
             closeViewEdit()
@@ -31,6 +31,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
 
     // The below passes the edited form data to the editData function in the TaskPage component
     const handleSubmit = () => {
+        setEditCard(false)
         editData(editedForm)
     }
 
@@ -57,11 +58,11 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
             {!editCard ?
                 <>
                     <H4>{currentData[0].title}</H4>
-                    <H5>Date and time created: {currentData[0].dateTime}</H5>
+                    <H5>Date created: {currentData[0].dateTime}</H5>
                     <H6>User: {currentData[0].user}</H6>
                     <p>{currentData[0].description}</p>
                     <ButtonHolder>
-                        <Button type="button" onClick={cardEdit}>Edit</Button>
+                        <Button type="button" onClick={setEditCard}>Edit</Button>
                         <Button type="button" onClick={handleClose}>Close</Button>
                     </ButtonHolder> 
                 </> : 
