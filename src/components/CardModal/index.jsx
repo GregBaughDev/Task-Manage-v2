@@ -5,6 +5,8 @@ import { Form, Input, Textarea, Select } from '../NewCard/styles'
 const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCard, editData, handleDelete}) => {
     // editedForm is the current form data prior to being edited
     const [editedForm, setEditedForm] = useState(currentData[0])
+    // valid handles form validation
+    const [valid, setValid] = useState(true)
 
     // The below handles the updating of the form
     const formUpdate = (e) => {
@@ -31,6 +33,24 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
     const handleSubmit = () => {
         editData(editedForm)
     }
+
+    // Form validation
+    const validate = (e) => {
+        if(e.target.value === ''){
+            e.target.placeholder = "Field must be completed"
+            setValid(false)
+        }
+        formValid()
+    }
+
+    const formValid = () => {
+        for(let key in editedForm){
+            if(editedForm[key] === ''){
+                return
+            }
+        }
+        setValid(true)
+    }
  
     return ( 
         <CardModal>
@@ -47,13 +67,13 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
                 </> : 
                 <Form>
                     <label htmlFor="title">Title:</label>
-                        <Input type="text" name="title" id="title" onChange={formUpdate} defaultValue={currentData[0].title} />
+                        <Input type="text" name="title" id="title" onBlur={validate} onChange={formUpdate} defaultValue={currentData[0].title} />
                     <label htmlFor="dateTime">Date:</label>
-                        <Input type="text" name="dateTime" id="dateTime" onChange={formUpdate} defaultValue={currentData[0].dateTime} />
+                        <Input type="text" name="dateTime" id="dateTime" onBlur={validate} onChange={formUpdate} defaultValue={currentData[0].dateTime} />
                     <label htmlFor="user">User:</label>
-                        <Input type="text" name="user" id="user" onChange={formUpdate} defaultValue={currentData[0].user} />
+                        <Input type="text" name="user" id="user" onBlur={validate} onChange={formUpdate} defaultValue={currentData[0].user} />
                     <label htmlFor="description">Description:</label>
-                        <Textarea id="description" name="description" onChange={formUpdate} defaultValue={currentData[0].description}></Textarea>
+                        <Textarea id="description" name="description" onBlur={validate} onChange={formUpdate} defaultValue={currentData[0].description}></Textarea>
                     <label htmlFor="column-select">Column:</label>
                         <Select value={currentData[0].column} onChange={formUpdate} name="column" id="column-select" required>
                                 <option value="" disabled>Select column</option>
@@ -62,7 +82,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, cardEdit, editCa
                             ))}
                         </Select>
                     <ButtonHolder>
-                        <Button onClick={handleSubmit} type="button">Submit</Button>
+                        <Button onClick={handleSubmit} type="button" disabled={valid ? false : true}>{valid ? 'Submit' : 'Enter information'}</Button>
                         <Button onClick={e => handleDelete(currentData[0]._id)} type="button">Delete</Button>
                         <Button onClick={handleClose} type="button">Close</Button>
                     </ButtonHolder>

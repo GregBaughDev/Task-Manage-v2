@@ -2,8 +2,7 @@
 
 A task management app built with React. This is a rebuild of a previous attempt of this application.  
 
-## To Do
-[] Add validations  
+## To Do 
 [] Load individual user cards and column
 [] Refactor, check current functions and add comments   
 [] Login functionality  
