@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Header, Img, Nav, Main, NewCardDisplay, P } from './styles'
 import CardHolder from '../CardHolder/index.jsx'
 import NewCard from '../NewCard/index'
 import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
-import seedData from './seeds'
 import columns from './columns'
 
 const TaskPage = () => {
@@ -15,7 +14,7 @@ const TaskPage = () => {
     // State for bg modal
     const [modal, setModal] = useState(false)
     // Seed data passed into state
-    const [hardData, setHardData] = useState(seedData) 
+    const [dbData, setDbData] = useState([]) 
     // Column data passed into state
     const [colData, setColData] = useState(columns)
     // State for handling adding a new column
@@ -27,39 +26,86 @@ const TaskPage = () => {
     const [cardActive, setCardActive] = useState(false)
     // State for handling adding a new card
     const [formData, setFormData] = useState({
-        /* Initial newform won't be added as the length is incremented
-        after the push so we end up with two cards with the same id */
-        // id: seedsData.length + 1,
-        id: 11,
         title: '', 
         dateTime: '',
         user: '',
-        description: 'Some placeholder text',
+        description: '',
         column: 1,
     }) 
  
     // Function to handle the new card data
     const updateForm = (e) => {
         const {name, value} = e.target
+        // TO DO: Sort out form validations
         setFormData(formData => ({
             ...formData,
             [name]: value
         }))
     }
 
-    // Function to handle adding the new card to the seed data
-    const addNewForm = (e) => {
+    // SERVER START
+    const fetchData = async () => {
+        try {
+            const response = await fetch('/api')
+            const cards = await response.json()
+            setDbData(cards)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    // Function to handle adding the new card to the db
+    const addNewForm = async (e) => {
         e.preventDefault()
-        // TO DO: Sort below validations
-        setFormData(formData => ({
-            ...formData,
-            id: hardData.length + 1,
-        }))
-        setHardData(hardData => (
-            hardData = [...hardData, formData]
-        ))
+        try {
+            await fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        fetchData()
         makeNewCard()
     }
+
+    // Function to handle deleting a card
+    const handleDelete = async (id) => {
+        try {
+            await fetch(`/api/${id}`, {
+                method: 'DELETE',
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        fetchData()
+        closeViewEdit()
+    }
+
+    // Function to handle editing a card
+    const editData = async (data) => {
+        try {
+            await fetch(`/api/${data._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        fetchData()
+        closeViewEdit()
+    }
+    // SERVER END
 
     // Function to change the view if a card is not being added
     const makeNewCard = () => {
@@ -71,20 +117,6 @@ const TaskPage = () => {
     const editColumn = () => {
         setModal(!modal)
         setUpdateCol(!updateCol)
-    }
-
-    // Function to handle editing a card and replacing in the array
-    const editData = (data) => {
-        const tempArray = [...hardData]
-        for(let temp of tempArray){
-            if(temp.id === data.id){
-                tempArray[tempArray.indexOf(temp)] = data
-            }
-        }
-        setHardData(hardData => (
-            hardData = tempArray
-        ))
-        closeViewEdit()
     }
     
     // Function to handle the new column data
@@ -123,15 +155,6 @@ const TaskPage = () => {
         ))
     }
 
-    // Function to handle deleting a card
-    const handleDelete = (id) => {
-        let tempArray = [...hardData]
-        setHardData(hardData => (
-            hardData = tempArray.filter(data => data.id !== id)
-        ))
-        closeViewEdit()
-    }
-
     // Function to handle deleting a column
     const handleColDelete = (id) => {
         // Delete the column
@@ -164,7 +187,7 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder hardData={hardData} updateForm={updateForm} addNewForm={addNewForm} columns={colData} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
+                <CardHolder dbData={dbData} updateForm={updateForm} addNewForm={addNewForm} columns={colData} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
             </Main>
         </>
     )
