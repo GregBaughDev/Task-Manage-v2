@@ -4,7 +4,7 @@ const TaskCard = ({data, cardClick}) => {
     return (
         <Card>
             <H4 id={data._id} onClick={cardClick}>{data.title}</H4>
-            <h5>Date and time created: {data.dateTime}</h5>
+            <h5>Date created: {data.dateTime}</h5>
             <p>User: {data.user}</p>
         </Card>
     )
