@@ -36,7 +36,6 @@ const TaskPage = () => {
     // Function to handle the new card data
     const updateForm = (e) => {
         const {name, value} = e.target
-        // TO DO: Sort out form validations
         setFormData(formData => ({
             ...formData,
             [name]: value
@@ -93,7 +92,7 @@ const TaskPage = () => {
     const editData = async (data) => {
         try {
             await fetch(`/api/${data._id}`, {
-                method: 'POST',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -176,8 +175,20 @@ const TaskPage = () => {
         <>
             <Header>
                 <NewCardDisplay $modal={modal}>
-                    {newCard && <NewCard columns={colData} addNewForm={addNewForm} updateForm={updateForm} makeNewCard={makeNewCard} />}
-                    {updateCol && <UpdateColumn updateColumn={updateColumn} addNewColumn={addNewColumn} columns={colData} addColumnUpdate={addColumnUpdate} editColumn={editColumn} handleColDelete={handleColDelete} />}
+                    {newCard && 
+                        <NewCard 
+                            columns={colData} 
+                            addNewForm={addNewForm} 
+                            updateForm={updateForm} 
+                            makeNewCard={makeNewCard} />}
+                    {updateCol && 
+                        <UpdateColumn 
+                            updateColumn={updateColumn} 
+                            addNewColumn={addNewColumn} 
+                            columns={colData} 
+                            addColumnUpdate={addColumnUpdate} 
+                            editColumn={editColumn} 
+                            handleColDelete={handleColDelete} />}
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
@@ -187,7 +198,15 @@ const TaskPage = () => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder dbData={dbData} updateForm={updateForm} addNewForm={addNewForm} columns={colData} editData={editData} closeViewEdit={closeViewEdit} cardActive={cardActive} handleDelete={handleDelete} />
+                <CardHolder 
+                    dbData={dbData} 
+                    updateForm={updateForm} 
+                    addNewForm={addNewForm} 
+                    columns={colData} 
+                    editData={editData} 
+                    closeViewEdit={closeViewEdit} 
+                    cardActive={cardActive} 
+                    handleDelete={handleDelete} />
             </Main>
         </>
     )
