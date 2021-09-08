@@ -29,7 +29,7 @@ const TaskPage = () => {
         title: '', 
         dateTime: '',
         user: '',
-        description: 'Some placeholder text',
+        description: '',
         column: 1,
     }) 
  
@@ -43,22 +43,69 @@ const TaskPage = () => {
         }))
     }
 
-    // IN PROGRESS
+    // SERVER START
+    const fetchData = async () => {
+        try {
+            const response = await fetch('/api')
+            const cards = await response.json()
+            setDbData(cards)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     // Function to handle adding the new card to the db
     const addNewForm = async (e) => {
         e.preventDefault()
-        await fetch("/cards", {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(res => console.log(res))
-        .catch(e => console.log(e))
+        try {
+            await fetch('/api', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        fetchData()
         makeNewCard()
     }
+
+    // Function to handle deleting a card
+    const handleDelete = async (id) => {
+        try {
+            await fetch(`/api/${id}`, {
+                method: 'DELETE',
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        fetchData()
+        closeViewEdit()
+    }
+
+    // Function to handle editing a card
+    const editData = async (data) => {
+        try {
+            await fetch(`/api/${data._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        fetchData()
+        closeViewEdit()
+    }
+    // SERVER END
 
     // Function to change the view if a card is not being added
     const makeNewCard = () => {
@@ -70,20 +117,6 @@ const TaskPage = () => {
     const editColumn = () => {
         setModal(!modal)
         setUpdateCol(!updateCol)
-    }
-
-    // Function to handle editing a card and replacing in the array
-    const editData = (data) => {
-        const tempArray = [...dbData]
-        for(let temp of tempArray){
-            if(temp.id === data.id){
-                tempArray[tempArray.indexOf(temp)] = data
-            }
-        }
-        setDbData(dbData => (
-            dbData = tempArray
-        ))
-        closeViewEdit()
     }
     
     // Function to handle the new column data
@@ -122,15 +155,6 @@ const TaskPage = () => {
         ))
     }
 
-    // Function to handle deleting a card
-    const handleDelete = (id) => {
-        let tempArray = [...dbData]
-        setDbData(dbData => (
-            dbData = tempArray.filter(data => data.id !== id)
-        ))
-        closeViewEdit()
-    }
-
     // Function to handle deleting a column
     const handleColDelete = (id) => {
         // Delete the column
@@ -147,20 +171,6 @@ const TaskPage = () => {
     const closeViewEdit = () => {
         setCardActive(!cardActive)
     }
-
-    // SERVER TESTING
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/home')
-                const cards = await response.json()
-                setDbData(cards)
-            } catch (e) {
-                console.log(e)
-            }
-        }
-        fetchData()
-    }, [])
 
     return (
         <>

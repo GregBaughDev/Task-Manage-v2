@@ -4,8 +4,8 @@ A task management app built with React. This is a rebuild of a previous attempt 
 
 ## To Do
 [] Add validations  
-[] Refactor, check current functions and add comments  
-[] Connect to Express and DB  
+[] Load individual user cards and column
+[] Refactor, check current functions and add comments   
 [] Login functionality  
 [] Responsive design  
 

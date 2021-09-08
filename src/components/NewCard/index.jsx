@@ -1,12 +1,25 @@
+import { useState } from 'react'
 import { NewCardHolder, Form, Input, Textarea, Select } from './styles'
 import { Button, ButtonHolder } from '../CardModal/styles'
 
 const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
+    const [valid, setValid] = useState(false)
+
+    const validate = (e) => {
+        // pop addNewForm function here which only runs if validations are passed
+        if(e.target.value === ''){
+            console.log("Field must be completed")
+        }
+        if(valid){
+            addNewForm()
+        }
+    }
+
     return (
         <NewCardHolder>
             <Form>
                 <label htmlFor="title">Title:</label>
-                    <Input onChange={updateForm} type="text" name="title" id="title" required />
+                    <Input onChange={updateForm} onBlur={validate} type="text" name="title" id="title" required />
                 {/* <label htmlFor="date">Start Date
                     <Input type="date" name="date" id="date" required />
                 </label>
@@ -14,11 +27,11 @@ const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
                     <Input type="date" name="date" id="date" required />
                 </label> */}
                 <label htmlFor="dateTime">Date:</label>
-                    <Input onChange={updateForm} type="text" name="dateTime" id="dateTime" required />
+                    <Input onChange={updateForm} onBlur={validate} type="text" name="dateTime" id="dateTime" required />
                 <label htmlFor="user">User:</label>
-                    <Input onChange={updateForm} type="text" name="user" id="user" required />
+                    <Input onChange={updateForm} onBlur={validate} type="text" name="user" id="user" required />
                 <label htmlFor="description">Description:</label>
-                    <Textarea id="description" name="description"></Textarea>
+                    <Textarea onChange={updateForm} onBlur={validate} id="description" name="description"></Textarea>
                 <label htmlFor="column-select">Column:</label>
                     <Select onChange={updateForm} name="column" id="column-select" required>
                             <option disabled>Select column</option>
