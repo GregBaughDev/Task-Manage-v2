@@ -6,7 +6,7 @@ import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
 import columns from './columns'
 
-const TaskPage = () => {
+const TaskPage = ({setUserAuth}) => {
     // State for new card in progress
     const [newCard, setNewCard] = useState(false)
     // State for column update in progress
@@ -194,7 +194,7 @@ const TaskPage = () => {
                <Nav>
                    <P onClick={makeNewCard}>New Task</P>
                    <P onClick={editColumn}>Edit Columns</P>
-                   <P>Log Out</P>
+                   <P onClick={() => setUserAuth(false)}>Log Out</P>
                </Nav>
             </Header>
             <Main>
