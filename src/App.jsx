@@ -1,20 +1,24 @@
 import { useState } from 'react'
 import { GlobalStyle } from './styles';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom"
 import TaskPage from './components/TaskPage';
 import Login from './components/Login';
 
 function App() {
   const [userAuth, setUserAuth] = useState(false)
-  
-//TO DO - React router dom and show the component if user is logged in/out
-
+  console.log(userAuth)
   return (
     <>
       <GlobalStyle />
-      {!userAuth ? 
-        <Login userAuth={userAuth} setUserAuth={setUserAuth} /> :
-        <TaskPage />
-      }
+      <Router>
+        <Switch>
+            <Route exact path="/" component={() => !userAuth ? <Login setUserAuth={setUserAuth} userAuth={userAuth} /> : <TaskPage setUserAuth={setUserAuth} />} />
+        </Switch>
+      </Router>
     </>
   );
 }
