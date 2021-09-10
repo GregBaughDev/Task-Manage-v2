@@ -17,13 +17,14 @@ TBC
 Link: TBC
 
 ##### To Do 
-[] Load individual user cards and column  
-[] Refactor, check current functions and add comments
-[] Responsive design  
+* Load individual user cards and column  
+* Refactor, check current functions and add comments
+* Responsive design
+* Add favicon  
 
 ###### Future Developments
 Version 2  
-[] Editing columns
-[] Update styles so scolling works on x & y axis  
-[] BACKEND - Delete the cards in that column  
-[] Change 'user' to select menu - Select from currently registered users  
+* Editing columns
+* Update styles so scolling works on x & y axis  
+* Delete all cards in deleted column  
+* Change 'user' to select menu - Select from currently registered users  
