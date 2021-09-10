@@ -5,11 +5,13 @@ import { Button } from "../CardModal/styles"
 import { FormHolder } from "./styles"
 import logo from "../../public/img/TMlogo.png"
 
-const Login = ({setUserAuth, userAuth}) => {
+const Login = ({setUserAuth}) => {
     const [login, setLogin] = useState({
         username: '',
         password: ''
     }) 
+
+    const [logError, setLogError] = useState('')
 
     const loginForm = (e) => {
         const {name, value} = e.target
@@ -32,7 +34,7 @@ const Login = ({setUserAuth, userAuth}) => {
             if(confirm.logged){
                 setUserAuth(confirm.id)
             } else {
-                console.log("Not logged int")
+                setLogError('There is an error with the username or password')
             }
         } catch(err) {
             console.log(err)
@@ -46,6 +48,7 @@ const Login = ({setUserAuth, userAuth}) => {
             </Header>
             <FormHolder>
                 <h1>Login</h1>
+                <p>{logError ? logError : 'Enter your username and password'}</p>
                 <Form>
                     <label htmlFor="username">Username:</label>
                         <Input onChange={loginForm} type="text" name="username" id="username" />

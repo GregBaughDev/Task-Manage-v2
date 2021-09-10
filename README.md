@@ -7,18 +7,21 @@ The app is built using the MERN stack and is my second attempt at this project.
 I originally developed the project using drag and drop functionality and the code incorporated both class based and functional components due to the drag and drop library. I decided to rebuild
 this project using solely functional based components and hooks.
 
-# Installation instructions
+## Technologies used
+HTML, React, Node, MongoDB, Styled Components, Figma
+
+### Installation instructions
 TBC
 
-# Example project
+#### Example project
 Link: TBC
 
-## To Do 
+##### To Do 
 [] Load individual user cards and column  
-[] Refactor, check current functions and add comments     
-[] Login functionality  
+[] Refactor, check current functions and add comments
 [] Responsive design  
 
+###### Future Developments
 Version 2  
 [] Editing columns
 [] Update styles so scolling works on x & y axis  
