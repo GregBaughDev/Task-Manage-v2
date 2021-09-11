@@ -171,6 +171,17 @@ const TaskPage = ({setUserAuth}) => {
         setCardActive(!cardActive)
     }
 
+    const handleLogOut = async () => {
+        try {
+            await fetch('/apilog', {
+                method: 'DELETE',
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        setUserAuth(false)
+    }
+
     return (
         <>
             <Header>
@@ -194,7 +205,7 @@ const TaskPage = ({setUserAuth}) => {
                <Nav>
                    <P onClick={makeNewCard}>New Task</P>
                    <P onClick={editColumn}>Edit Columns</P>
-                   <P onClick={() => setUserAuth(false)}>Log Out</P>
+                   <P onClick={handleLogOut}>Log Out</P>
                </Nav>
             </Header>
             <Main>

@@ -20,7 +20,7 @@ Link: TBC
 * Load individual user cards and column  
 * Refactor, check current functions and add comments
 * Responsive design
-* Add favicon  
+* Update errors for DB disconnection
 
 ###### Future Developments
 Version 2  
