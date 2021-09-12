@@ -5,7 +5,7 @@ v1.2
 A task management app built with React. 
 The app is built using the MERN stack and is my second attempt at this project.
 I originally developed the project using drag and drop functionality and the code incorporated both class based and functional components due to the drag and drop library. I decided to rebuild
-this project using solely functional based components and hooks.
+this project using solely functional based components and hooks. The original version can be viewed [here](https://github.com/GregBaughDev/Task-Manage)
 
 ## Technologies used
 HTML, React, Node, MongoDB, Styled Components, Figma
