@@ -13,6 +13,10 @@ export const Card = styled.section`
     background-color: #F8CCC5;
     border-radius: 25px;
     margin-bottom: 5%;
+
+    @media (max-width: 1020px) {
+        height: auto;
+    }
 `
 
 export const H4 = styled.h4`

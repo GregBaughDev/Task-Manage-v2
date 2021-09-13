@@ -30,6 +30,10 @@ export const H4 = styled.h4`
 
 export const H5 = styled.h5`
     font-size: 2rem;
+
+    @media (max-width: 1020px){
+        display: ${({$cardActive}) => ($cardActive ? 'inline' : 'none')}
+    }
 `
 
 export const H6 = styled.h6`
@@ -59,5 +63,11 @@ export const Button = styled.button`
     &:hover {
         background-color: #C5C9C6;
         cursor: pointer;
+    }
+`
+
+export const P = styled.p`
+    @media (max-width: 1020px){
+        display: ${({$cardActive}) => ($cardActive ? 'inline' : 'none')}
     }
 `

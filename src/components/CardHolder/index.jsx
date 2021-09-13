@@ -25,7 +25,15 @@ const CardHolder = ({columns, dbData, editData, closeViewEdit, cardActive, handl
     return(
         <Holder>
             <CardDisplay $cardActive={cardActive} >
-                {cardActive && <CardModalDisplay closeViewEdit={closeViewEdit} currentData={currentData} columns={columns} setEditCard={setEditCard} editCard={editCard} editData={editData} handleDelete={handleDelete} /> }
+                {cardActive && <CardModalDisplay 
+                                    closeViewEdit={closeViewEdit} 
+                                    currentData={currentData} 
+                                    columns={columns} 
+                                    setEditCard={setEditCard} 
+                                    editCard={editCard} 
+                                    editData={editData} 
+                                    handleDelete={handleDelete}
+                                    cardActive={cardActive} /> }
             </CardDisplay>
             {/* TO DO V2 - Move below into cards section for styling */}
             <HolderHead>

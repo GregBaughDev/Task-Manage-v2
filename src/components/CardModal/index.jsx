@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { CardModal, H4, H5, H6, Button, ButtonHolder} from './styles'
+import { CardModal, H4, H5, H6, P, Button, ButtonHolder} from './styles'
 import { Form, Input, Textarea, Select } from '../NewCard/styles'
 
-const CardModalDisplay = ({closeViewEdit, currentData, columns, setEditCard, editCard, editData, handleDelete}) => {
+const CardModalDisplay = ({closeViewEdit, currentData, columns, setEditCard, editCard, editData, handleDelete, cardActive}) => {
     // editedForm is the current form data prior to being edited
     const [editedForm, setEditedForm] = useState(currentData[0])
     // valid handles form validation
@@ -58,9 +58,9 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, setEditCard, edi
             {!editCard ?
                 <>
                     <H4>{currentData[0].title}</H4>
-                    <H5>Date created: {currentData[0].dateTime}</H5>
+                    <H5 $cardActive={cardActive}>Date created: {currentData[0].dateTime}</H5>
                     <H6>User: {currentData[0].user}</H6>
-                    <p>{currentData[0].description}</p>
+                    <P $cardActive={cardActive}>{currentData[0].description}</P>
                     <ButtonHolder>
                         <Button type="button" onClick={setEditCard}>Edit</Button>
                         <Button type="button" onClick={handleClose}>Close</Button>

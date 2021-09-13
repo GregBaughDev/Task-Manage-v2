@@ -16,6 +16,8 @@ TBC
 #### Example project
 Link: TBC
 
+#### Test login user details
+
 ##### To Do 
 * Load individual user cards and column  
 * Refactor, check current functions and add comments

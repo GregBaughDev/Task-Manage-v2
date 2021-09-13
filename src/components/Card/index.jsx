@@ -1,4 +1,5 @@
 import { Card, H4 } from './styles'
+import './css.css'
 
 const TaskCard = ({data, cardClick}) => {
     return (
