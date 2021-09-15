@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid')
+const checkAuth = require('../helpers/checkauth')
 
 router
     .route("/")
@@ -17,7 +18,8 @@ router
         }
         const validPass = await bcrypt.compare(password, search[0].password)
         if(validPass) {
-            req.session.id = uuidv4
+            //req.session.id = uuidv4
+            req.session.user_id = "logged"
             res.json({
                 logged: true,
                 id: req.session.id
@@ -28,9 +30,11 @@ router
             })
         }
     })
-    .delete(async (req, res) => {
-        delete req.session
+    .delete(checkAuth, async (req, res) => {
+        // delete req.session
+        req.session.destroy()
         res.json({
+            message: "Logged out",
             logged: false
         })
     })

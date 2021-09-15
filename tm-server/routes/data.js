@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const Card = require('../models/card')
+const checkAuth = require('../helpers/checkauth')
 
 router
     .route("/")
-    .get(async (req, res) => {
+    .get(checkAuth, async (req, res) => {
         await Card.find()
         .then(result => res.json(result))
         .catch(err => {
@@ -14,7 +15,7 @@ router
             })
         })
     })
-    .post(async (req, res) => {
+    .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
         await newCard.save()
         .then(() => {
@@ -32,7 +33,7 @@ router
 
 router
     .route("/:id")
-    .delete(async (req, res) => {
+    .delete(checkAuth, async (req, res) => {
         await Card.findByIdAndDelete(req.params.id)
         .then(() => {
             res.status(201).json({
@@ -45,7 +46,7 @@ router
             })
         })
     })
-    .patch(async (req, res) => {
+    .patch(checkAuth, async (req, res) => {
         const {id} = req.params
         const editCard = await Card.findByIdAndUpdate(id, {...req.body})
         await editCard.save()

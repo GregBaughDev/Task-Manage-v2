@@ -26,7 +26,8 @@ app.use(express.json())
 app.use(cors())
 app.use(session ({
     name: "task-manage",
-    secret: uuidv4(),
+    // secret: uuidv4(),
+    secret: 'secret',
     resave: false,
     saveUninitialized: false,
     cookie: {

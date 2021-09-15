@@ -176,6 +176,8 @@ const TaskPage = ({setUserAuth}) => {
             await fetch('/apilog', {
                 method: 'DELETE',
             })
+            .then(res => res.json())
+            .then(msg => console.log(msg))
         } catch(err) {
             console.log(err)
         }
