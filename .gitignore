@@ -4,7 +4,7 @@
 .pnp.js
 tm-server/node_modules
 tm-server/.env
-src/public
+# src/public
 
 # testing
 /coverage
