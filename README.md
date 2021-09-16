@@ -1,12 +1,15 @@
 ![](src/public/img/TMlogo.png)
 # Task Manage
-## A task management app built by Greg Baugh
+## A task management web application
 v1.2
 
-A task management app built with React. 
-The app is built using the MERN stack and is my second attempt at this project.
-I originally developed the project using drag and drop functionality and the code incorporated both class based and functional components due to the drag and drop library. I decided to rebuild
-this project using solely functional based components and hooks. The original version can be viewed [here](https://github.com/GregBaughDev/Task-Manage)
+This project is a kanban board style task management app.
+
+The app allows users to create, update and delete task cards to keep track of their projects. It has four columns indicating each stage of the current task and users can easily move cards between the columns.  
+  
+I built this project using ReactJS for the frontend and NodeJS/Express on the backend. Express handles the calls to the MongoDB NoSQL database. MongoDB was selected for the database due to it's flexibility and ease of scaling if extra features are added in the future.  
+  
+After completing a React course which focused on class based components, I built an initial version of the project (code can be viewed [here](https://github.com/GregBaughDev/Task-Manage)) which incorporated a drag and drop library to allow for DND functionality. After the integration of the library the initial development became a combination of class and functional based components. Attempting to integrate hardcoded data for the application, prior to adding the database, became increasingly difficult. Returning to the drawing board, I completed another React course which taught functional components. 
 
 ## Technologies used
 HTML, React, Node, MongoDB, Styled Components, Figma
