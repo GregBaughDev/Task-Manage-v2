@@ -1,3 +1,4 @@
+![](src/public/img/TMlogo.png)
 # Task Manage
 ## A task management app built by Greg Baugh
 v1.2
