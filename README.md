@@ -1,15 +1,14 @@
 ![](src/public/img/TMlogo.png)
-# Task Manage
-## A task management web application
+# A task management web application
 v1.2
 
-This project is a kanban board style task management app.
+Task Manage is a kanban board style task management app.
 
 The app allows users to create, update and delete task cards to keep track of their projects. It has four columns indicating each stage of the current task and users can easily move cards between the columns.  
   
 I built this project using ReactJS for the frontend and NodeJS/Express on the backend. Express handles the calls to the MongoDB NoSQL database. MongoDB was selected for the database due to it's flexibility and ease of scaling if extra features are added in the future.  
   
-After completing a React course which focused on class based components, I built an initial version of the project (code can be viewed [here](https://github.com/GregBaughDev/Task-Manage)) which incorporated a drag and drop library to allow for DND functionality. After the integration of the library the initial development became a combination of class and functional based components. Attempting to integrate hardcoded data for the application, prior to adding the database, became increasingly difficult. Returning to the drawing board, I completed another React course which taught functional components. 
+After completing a React course which focused on class based components, I built an initial version of the project (code can be viewed [here](https://github.com/GregBaughDev/Task-Manage)) which incorporated a drag and drop library to allow for drag and drop functionality. After the integration of the library the initial development became a combination of class and functional based components. Attempting to integrate user data into the application became increasingly difficult. Returning to the drawing board, I completed another React course which taught functional components. With the changes in React moving towards functional based components and hooks, I've now rebuilt the app integrating functional components and hooks.  
 
 ## Technologies used
 HTML, React, Node, MongoDB, Styled Components, Figma
