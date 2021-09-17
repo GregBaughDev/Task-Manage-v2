@@ -4,13 +4,14 @@
 .pnp.js
 tm-server/node_modules
 tm-server/.env
-# src/public
+./public
+./src
 
 # testing
 /coverage
 
 # production
-/build
+# /build
 
 # misc
 .DS_Store

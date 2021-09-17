@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production'){
 }
 const express = require('express')
 const app = express()
+const path = require('path')
 const session = require('express-session')
 const mongoose = require('mongoose')
 const api = require('./routes/data')
@@ -34,6 +35,13 @@ app.use(session ({
         maxAge: 3600000,
     }
 }))
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static())
+    app.get('*', (req, res) => {
+        req.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    })
+}
 
 app.use("/api", api)
 app.use("/apilog", apilog)
