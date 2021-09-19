@@ -12,18 +12,21 @@ After completing a React course which focused on class based components, I built
 
 For future versions of the app, users will be able to customise columns in the app and store these to the database for persistence.
 
+I've used the [Hauora](https://github.com/WCYS-Co/Hauora-Sans) font family for this project.
+
 ## Technologies used
 HTML, React, Node, MongoDB, Styled Components, Figma
 
-### Installation instructions
-TBC
-
-#### Example project
-Link: TBC
+#### Deployed project
+There is a deployed version of this project available to use [here](https://taskmanage2.herokuapp.com/)
 
 #### Test login user details
-Username: TBC
-Login: TBC
+Username: testuser 
+Login: test1234
+
+#### Licence
+MIT License
+Copyright (c) 2021 Greg Baugh
 
 ##### To Do 
 * Load individual user cards and column  
