@@ -21,7 +21,7 @@ HTML, React, Node, MongoDB, Styled Components, Figma
 There is a deployed version of this project available to use [here](https://taskmanage2.herokuapp.com/)
 
 #### Test login user details
-Username: testuser 
+Username: testuser   
 Login: test1234
 
 #### Licence
