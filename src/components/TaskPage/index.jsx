@@ -212,15 +212,17 @@ const TaskPage = ({setUserAuth}) => {
                </Nav>
             </Header>
             <Main>
-                <CardHolder 
-                    dbData={dbData} 
-                    updateForm={updateForm} 
-                    addNewForm={addNewForm} 
-                    columns={colData} 
-                    editData={editData} 
-                    closeViewEdit={closeViewEdit} 
-                    cardActive={cardActive} 
-                    handleDelete={handleDelete} />
+                {dbData === [] ? <h2>Loading</h2> : 
+                    <CardHolder 
+                        dbData={dbData} 
+                        updateForm={updateForm} 
+                        addNewForm={addNewForm} 
+                        columns={colData} 
+                        editData={editData} 
+                        closeViewEdit={closeViewEdit} 
+                        cardActive={cardActive} 
+                        handleDelete={handleDelete} />
+                }
             </Main>
         </>
     )
