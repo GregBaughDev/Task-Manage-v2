@@ -6,6 +6,7 @@ const app = express()
 const path = require('path')
 const session = require('express-session')
 const mongoose = require('mongoose')
+const MongoDBStore = require('connect-mongo')
 const api = require('./routes/data')
 const apilog = require('./routes/log')
 const cors = require('cors')
@@ -23,9 +24,20 @@ db.once("open", () => {
     console.log("MongoDB Atlas connected")
 })
 
+const store = MongoDBStore.create({
+    mongoUrl: process.env.DB_URL,
+    secret: process.env.SECRET,
+    touchAfter: 24 * 60 * 60,
+})
+
+store.on("error", function(e) {
+    console.log("Error with StoreDB", e)
+})
+
 app.use(express.json())
 app.use(cors())
 app.use(session ({
+    store,
     name: "task-manage",
     secret: uuidv4(),
     resave: false,
