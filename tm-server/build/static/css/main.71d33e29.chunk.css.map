@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Card/css.css"],"names":[],"mappings":"AAAA,0BACI,KACI,YACJ,CACJ","file":"main.71d33e29.chunk.css","sourcesContent":["@media (max-width: 1020px) {\n    h5, p {\n        display: none;\n    }\n}"]}
