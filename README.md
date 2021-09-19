@@ -31,7 +31,7 @@ Copyright (c) 2021 Greg Baugh
 ##### To Do 
 * Load individual user cards and column  
 * Refactor, check current functions and add comments
-* Responsive design
+* WIP: Finalise responsive design
 * Update errors for DB disconnection
 
 ###### Future Developments
