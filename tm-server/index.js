@@ -36,15 +36,15 @@ app.use(session ({
     }
 }))
 
+app.use("/api", api)
+app.use("/apilog", apilog)
+
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('build'))
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
     })
 }
-
-app.use("/api", api)
-app.use("/apilog", apilog)
 
 app.listen(port, () => {
     console.log(`Task Manage server is listening on ${port}`)
