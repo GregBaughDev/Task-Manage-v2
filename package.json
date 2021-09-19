@@ -15,10 +15,12 @@
   },
   "scripts": {
     "dev": "react-scripts start",
+    "build": "react-scripts build",
     "start": "cd tm-server && npm install && node index.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",
