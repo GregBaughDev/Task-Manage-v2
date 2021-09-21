@@ -49,9 +49,11 @@ const Login = ({setUserAuth}) => {
             </Header>
             <FormHolder>
                 <h1>Login</h1>
-                <h3>Test account details are available <a href="https://github.com/GregBaughDev/Task-Manage-v2">here</a></h3>
-                <p>{logError ? logError : 'Enter your username and password'}</p>
+                <h3>Test account details:</h3> 
+                <h4>username: testuser</h4>
+                <h4>password: test1234</h4>
                 <Form>
+                    <h4>{logError ? logError : 'Enter your username and password'}</h4>
                     <label htmlFor="username">Username:</label>
                         <Input onChange={loginForm} type="text" name="username" id="username" />
                     <label htmlFor="password">Password:</label>
