@@ -18,7 +18,7 @@ I've used the [Hauora](https://github.com/WCYS-Co/Hauora-Sans) font family for t
 HTML, React, Node, MongoDB, Styled Components, Figma
 
 #### Deployed project
-There is a deployed version of this project available to use [here](https://taskmanage2.herokuapp.com/)
+The project is available [here](https://taskmanage2.herokuapp.com/)
 
 #### Test login user details
 Username: testuser   
@@ -28,10 +28,9 @@ Login: test1234
 MIT License
 Copyright (c) 2021 Greg Baugh
 
-##### To Do 
+##### In Progress 
 * Load individual user cards and column  
 * Refactor, check current functions and add comments
-* WIP: Finalise responsive design
 * Update errors for DB disconnection
 
 ###### Future Developments
