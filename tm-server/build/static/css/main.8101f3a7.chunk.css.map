@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Card/css.css","webpack://src/components/Login/styles.css"],"names":[],"mappings":"AAAA,0BACI,KACI,YACJ,CACJ,CCJA,GACI,iBACJ","file":"main.8101f3a7.chunk.css","sourcesContent":["@media (max-width: 1020px) {\n    h5, p {\n        display: none;\n    }\n}","h3 {\n    text-align: center;\n}"]}
