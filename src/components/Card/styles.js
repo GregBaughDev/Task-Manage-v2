@@ -29,4 +29,8 @@ export const H4 = styled.h4`
         text-decoration: underline;
         cursor: pointer;
     }
+
+    @media (max-width: 600px) {
+        font-size: 0.75rem;
+    }
 `
