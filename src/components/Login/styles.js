@@ -17,4 +17,14 @@ export const FormHolder = styled.div`
         padding: 5vh 5vw;
         margin-top: 2vh;
     }
+
+    @media (max-width: 600px) {
+        Form {
+            width: 100%;
+        }
+
+        Button {
+            width: 75%;
+        }
+    }
 `

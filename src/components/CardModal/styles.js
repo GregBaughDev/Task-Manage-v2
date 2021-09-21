@@ -13,6 +13,10 @@ export const CardModal = styled.aside`
     min-height: 60vh;
     height: auto;
     padding: 3vh 2vw;
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
 `   
 
 export const H4 = styled.h4`
@@ -26,18 +30,30 @@ export const H4 = styled.h4`
         position: relative;
         height: 3px;
     }
+
+    @media (max-width: 600px) {
+        font-size: 1.5rem;
+    }
 `
 
 export const H5 = styled.h5`
     font-size: 2rem;
 
-    @media (max-width: 1020px){
+    @media (max-width: 1020px) {
         display: ${({$cardActive}) => ($cardActive ? 'inline' : 'none')}
+    }
+
+    @media (max-width: 600px) {
+        font-size: 1.5rem;
     }
 `
 
 export const H6 = styled.h6`
     font-size: 1.5rem;
+
+    @media (max-width: 600px) {
+        font-size: 1rem;
+    }
 `
 
 export const ButtonHolder = styled.div`

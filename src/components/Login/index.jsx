@@ -4,6 +4,7 @@ import { Form, Input } from "../NewCard/styles"
 import { Button } from "../CardModal/styles"
 import { FormHolder } from "./styles"
 import logo from "../../public/img/TMlogo.png"
+import "./styles.css"
 
 const Login = ({setUserAuth}) => {
     const [login, setLogin] = useState({
