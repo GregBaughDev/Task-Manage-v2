@@ -207,7 +207,7 @@ const TaskPage = ({setUserAuth}) => {
                <Nav>
                    <P onClick={makeNewCard}>New Task</P>
                    {/* TODO: Edit column functionality for v2 */}
-                   {/* <P onClick={editColumn}>Edit Columns</P> */}
+                   <P onClick={editColumn}>Edit Columns</P>
                    <P onClick={handleLogOut}>Log Out</P>
                </Nav>
             </Header>

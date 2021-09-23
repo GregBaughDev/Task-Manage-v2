@@ -80,6 +80,10 @@ export const Button = styled.button`
         background-color: #C5C9C6;
         cursor: pointer;
     }
+
+    @media (max-width: 700px){
+        font-size: 0.5rem;
+    }
 `
 
 export const P = styled.p`
