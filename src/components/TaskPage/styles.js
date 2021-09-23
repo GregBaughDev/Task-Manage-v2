@@ -10,6 +10,12 @@ export const Header = styled.header`
     padding: 0 2vw;
     left: 0;
     right: 0;
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+        height: auto;
+        padding: 2vh 2vw;
+    }
 `
 
 export const Img = styled.img`
@@ -28,6 +34,7 @@ export const Nav = styled.nav`
 
     @media (max-width: 700px) {
         width: 40vw;
+        width: 75vw;
         font-size: 1rem;
     }
 

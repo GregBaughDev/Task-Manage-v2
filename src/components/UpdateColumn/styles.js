@@ -12,6 +12,7 @@ export const UpdateHolder = styled.div`
 
 export const P = styled.p`
     font-size: 1.25rem;
+    display: inline;
 `  
 
 export const ColumnList = styled.div`

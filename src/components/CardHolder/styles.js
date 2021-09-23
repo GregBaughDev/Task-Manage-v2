@@ -28,6 +28,7 @@ export const H3 = styled.h3`
     background-color: #DAEDDE;
     height: 100%;
     padding: 1vh 0;
+    white-space: nowrap; 
 
     @media (max-width: 600px) {
         font-size: 1rem;

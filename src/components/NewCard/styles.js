@@ -10,9 +10,14 @@ export const NewCardHolder = styled.section`
     display: flex;
     align-items: center;
 
+    @media (max-height: 700px) {
+        height: 90vh;
+    }
+
     @media (max-width: 600px) {
         width: 90%;
     }
+
 `
 
 export const Form = styled.form`
