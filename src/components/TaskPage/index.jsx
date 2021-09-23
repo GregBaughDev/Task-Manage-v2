@@ -4,7 +4,6 @@ import CardHolder from '../CardHolder/index.jsx'
 import NewCard from '../NewCard/index'
 import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
-import columns from './columns'
 
 const TaskPage = ({setUserAuth}) => {
     // State for new card in progress
@@ -16,7 +15,7 @@ const TaskPage = ({setUserAuth}) => {
     // Seed data passed into state
     const [dbData, setDbData] = useState([]) 
     // Column data passed into state
-    const [colData, setColData] = useState(columns)
+    const [colData, setColData] = useState([])
     // State for handling adding a new column
     const [colForm, setColForm] = useState({
         id: 5,
@@ -53,8 +52,19 @@ const TaskPage = ({setUserAuth}) => {
         }
     }
 
+    const fetchColumns = async () => {
+        try {
+            const response = await fetch('/apicol')
+            const columns = await response.json()
+            setColData(columns)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         fetchData()
+        fetchColumns()
     }, [])
 
     // Function to handle adding the new card to the db
