@@ -15,11 +15,19 @@ router
             })
         })
     })
-    /* Add checkauth in below for production, just take column name and manual
-    add id on before saving */
+    /* Add checkauth in below for production */
     .post(async (req, res) => {
         const colLength = await Column.find()
-        console.log(colLength.length + 1)
+        const newColumn = await new Column(req.body)
+        newColumn.id = colLength.length + 1
+        newColumn.save()
+        res.end()
+    })
+
+router
+    .route("/:id")
+    .delete(async (req, res) => {
+        await Column.deleteOne({id: req.params.id})
         res.end()
     })
 

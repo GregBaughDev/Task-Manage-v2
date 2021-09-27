@@ -27,8 +27,7 @@ const CardScema = new Schema({
     column: {
         type: Number,
         required: true,
-        min: 1,
-        max: 4
+        min: 1
     }
 })
 

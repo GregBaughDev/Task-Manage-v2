@@ -18,7 +18,7 @@ const TaskPage = ({setUserAuth}) => {
     const [colData, setColData] = useState([])
     // State for handling adding a new column
     const [colForm, setColForm] = useState({
-        id: 5,
+        id: '',
         name: '',
     })
     // State for handling viewing of a card
@@ -37,6 +37,15 @@ const TaskPage = ({setUserAuth}) => {
         const {name, value} = e.target
         setFormData(formData => ({
             ...formData,
+            [name]: value
+        }))
+    }
+
+    // Function to handle the new column data
+    const updateColumn = (e) => {
+        const {name, value} = e.target
+        setColForm(colForm => ({
+            ...colForm,
             [name]: value
         }))
     }
@@ -114,6 +123,41 @@ const TaskPage = ({setUserAuth}) => {
         fetchData()
         closeViewEdit()
     }
+
+    // Function to handle adding the new column to the column data
+    const addNewColumn = async (e) => {
+        e.preventDefault()
+        try {
+            await fetch('/apicol', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(colForm)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+        editColumn()
+        fetchData()
+        fetchColumns()
+    }
+
+    // Function to handle deleting a column
+    const handleColDelete = async (id) => {
+        try {
+            await fetch(`/apicol/${id}`, {
+                method: 'DELETE',
+            })
+        } catch (err) {
+            console.log(err)
+        }
+        // Delete the cards in the column
+        // TO DO: Cards not deleted from column - update when connected to backend
+        editColumn()
+        fetchColumns()
+    }
+
     // SERVER END
 
     // Function to change the view if a card is not being added
@@ -127,29 +171,6 @@ const TaskPage = ({setUserAuth}) => {
         setModal(!modal)
         setUpdateCol(!updateCol)
     }
-    
-    // Function to handle the new column data
-    const updateColumn = (e) => {
-        const {name, value} = e.target
-        setColForm(colForm => ({
-            ...colForm,
-            [name]: value
-        }))
-    }
-
-    // Function to handle adding the new column to the column data
-    const addNewColumn = (e) => {
-        e.preventDefault()
-        // TO DO: Look into below as ID is adding two 5's and sort styles for new column
-        setColForm(colForm => ({
-            ...colForm,
-            id: colData.length + 1,
-        }))
-        setColData(colData => (
-            colData = [...colData, colForm]
-        ))
-        editColumn()
-    }
 
     // Function to handle editing a column and replacing in the array
     const addColumnUpdate = (data) => {
@@ -162,18 +183,6 @@ const TaskPage = ({setUserAuth}) => {
         setColData(colData => (
             colData = tempArray
         ))
-    }
-
-    // Function to handle deleting a column
-    const handleColDelete = (id) => {
-        // Delete the column
-        let tempColArray = [...colData]
-        setColData(colData => (
-            colData = tempColArray.filter(data => data.id !== id)
-        ))
-        // Delete the cards in the column
-        // TO DO: Cards not deleted from column - update when connected to backend
-        editColumn()
     }
 
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
