@@ -27,7 +27,10 @@ router
 router
     .route("/:id")
     .delete(async (req, res) => {
-        await Column.deleteOne({id: req.params.id})
+        // WIP: Below isn't find the column
+        console.log(req.params.id)
+        let column = await Column.find({id: req.params.id})
+        console.log(column)
         res.end()
     })
 
