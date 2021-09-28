@@ -25,7 +25,7 @@ Username: testuser
 Login: test1234
 
 #### Images
-[](https://res.cloudinary.com/dbdcclhzw/image/upload/v1632802545/Projects/Task/TM3_rgwfzx.png)
+![](https://res.cloudinary.com/dbdcclhzw/image/upload/v1632802545/Projects/Task/TM3_rgwfzx.png)
 
 #### Licence
 MIT License
