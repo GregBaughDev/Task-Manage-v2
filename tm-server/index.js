@@ -14,8 +14,15 @@ const cors = require('cors')
 const { v4: uuidv4 } = require('uuid')
 
 const port = process.env.PORT || 5000
+let dbConnection 
 
-mongoose.connect(process.env.DB_URL,
+if(process.env.NODE_ENV === 'production'){
+    dbConnection = process.env.DB_URL
+} else {
+    dbConnection = 'mongodb://localhost:27017/task-manage'
+}
+
+mongoose.connect(dbConnection,
     {useNewUrlParser: true,
     useUnifiedTopology: true})
 

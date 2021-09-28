@@ -21,14 +21,13 @@ const ColumnSchema = new Schema({
 })
 //TO DO: WIP Below
 ColumnSchema.post('findOneAndDelete', async function (doc) {
-    console.log(doc)
-    // if(doc){
-    //     await Card.deleteMany({
-    //         _id: {
-    //             $in: doc.cards
-    //         }
-    //     })
-    // }
+    if(doc){
+        await Card.deleteMany({
+            _id: {
+                $in: doc.cards
+            }
+        })
+    }
 })
 
 module.exports = mongoose.model('Column', ColumnSchema)

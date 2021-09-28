@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Card = require('../models/card')
+const Column =  require('../models/column')
 const checkAuth = require('../helpers/checkauth')
 
 router
@@ -17,7 +18,10 @@ router
     })
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
+        const cardColumn = await Column.find({id: req.body.column})
         await newCard.save()
+        await cardColumn.cards.push(newCard)
+        await cardColumn.save()
         .then(() => {
             res.status(201).json({
                 message: "Added successfully"
