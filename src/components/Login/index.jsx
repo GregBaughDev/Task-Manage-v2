@@ -18,12 +18,11 @@ const Login = ({setUserAuth}) => {
     const [newUser, setNewUser] = useState(false)
     // Handle new user form
     const [newUserForm, setNewUserForm] = useState({
+        sentFrom: false,
         username: '',
         passwordFirst: '',
         passwordSecond: ''
     })
-    // Handle if new user form validations have passed
-    const [valid, setValid] = useState(false)
 
     const loginForm = (e) => {
         const {name, value} = e.target
@@ -61,17 +60,39 @@ const Login = ({setUserAuth}) => {
         }))
     }
 
+    const submitNewUser = async () => {
+        try {
+            const addNew = await fetch('/apiuser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newUserForm)
+            })
+            const response = await addNew.json()
+            // TO DO: CHECK IF RESPONSE IS +VE AND MOVE TO LOGIN
+            console.log(response)
+        } catch (e) {
+            console.log(e)
+        } 
+    }
+
     const createUser = () => {
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g
         setLogError(false)
         for(let value in newUserForm){
-            newUserForm[value] === '' && setLogError('All fields must be completed')
+            if(newUserForm[value] === '') {
+                return setLogError('All fields must be completed')
+            } 
         }
-        newUserForm['passwordFirst'] !== newUserForm['passwordSecond'] && setLogError('Passwords must match')
-        console.log("Validations passed")
-        /* TO DO:
-        Regex ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$
-        Change the class when each requirement has been met
-        Set create button to enabled when validations are met */
+        if(newUserForm['passwordFirst'] !== newUserForm['passwordSecond']){
+            return setLogError('Passwords must match')
+        }
+        if(!passwordRegex.test(newUserForm['passwordFirst'])){
+            return setLogError('Password does not meet requirements')
+        }
+        newUserForm.sentFrom = true
+        submitNewUser()
     }
 
     return (
@@ -113,7 +134,7 @@ const Login = ({setUserAuth}) => {
                                     <li>Passwords must contain at least 1 uppercase letter, 1 lowercase letter and 1 number</li>
                                     <li>Passwords can contain special characters</li>
                                 </ul>
-                                <Button onClick={createUser} type="button" disabled={!valid && true}>Create user</Button>
+                                <Button onClick={createUser} type="button">Create user</Button>
                             </Form>
                         </>}
                 </FormHolder>

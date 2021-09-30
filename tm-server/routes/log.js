@@ -17,7 +17,6 @@ router
         }
         const validPass = await bcrypt.compare(password, search[0].password)
         if(validPass) {
-            //req.session.id = uuidv4
             req.session.user_id = "logged"
             res.json({
                 logged: true,

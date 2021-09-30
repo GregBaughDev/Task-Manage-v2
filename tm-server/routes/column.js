@@ -6,14 +6,15 @@ const checkAuth = require('../helpers/checkauth')
 router
     .route("/")
     .get(checkAuth, async (req, res) => {
-        await Column.find()
-        .then(result => res.json(result))
-        .catch(err => {
+        try {
+            const result = await Column.find()
+            res.json(result)
+        } catch (err) {
             res.status(400).json({
                 message: "Error retrieving information from DB",
                 err
             })
-        })
+        }
     })
     /* Add checkauth in below for production */
     .post(async (req, res) => {

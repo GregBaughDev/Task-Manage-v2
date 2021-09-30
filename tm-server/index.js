@@ -10,6 +10,7 @@ const MongoDBStore = require('connect-mongo')
 const api = require('./routes/data')
 const apilog = require('./routes/log')
 const apicol = require('./routes/column')
+const apiuser = require('./routes/user')
 const cors = require('cors')
 const { v4: uuidv4 } = require('uuid')
 
@@ -59,6 +60,7 @@ app.use(session ({
 app.use("/api", api)
 app.use("/apilog", apilog)
 app.use("/apicol", apicol)
+app.use("/apiuser", apiuser)
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('build'))

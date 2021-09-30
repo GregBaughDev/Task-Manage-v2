@@ -7,63 +7,63 @@ const checkAuth = require('../helpers/checkauth')
 router
     .route("/")
     .get(checkAuth, async (req, res) => {
-        await Card.find()
-        .then(result => res.json(result))
-        .catch(err => {
+        try {
+            const result = await Card.find()
+            await res.json(result)
+        } catch (err) {
             res.status(400).json({
                 message: "Error retrieving information from DB",
                 err
             })
-        })
+        }
     })
     .post(checkAuth, async (req, res) => {
-        const newCard = await new Card(req.body)
-        const cardColumn = await Column.find({id: req.body.column})
-        await newCard.save()
-        await cardColumn.cards.push(newCard)
-        await cardColumn.save()
-        .then(() => {
+        try {
+            const newCard = await new Card(req.body)
+            const cardColumn = await Column.find({id: req.body.column})
+            await newCard.save()
+            await cardColumn.cards.push(newCard)
+            await cardColumn.save()
             res.status(201).json({
                 message: "Added successfully"
             })
-        })
-        .catch(err => {
+        } catch (err) {
             res.status(400).json({
                 message: "Error adding to DB",
                 err
             })
-        })
+        }
     })
 
 router
     .route("/:id")
     .delete(checkAuth, async (req, res) => {
-        await Card.findByIdAndDelete(req.params.id)
-        .then(() => {
+        try {
+            await Card.findByIdAndDelete(req.params.id)
             res.status(201).json({
                 message: "Deleted successfully"
             })
-        })
-        .catch(err => {
+        } catch (err) {
             res.status(400).json({
-                message: "Error deleting"
+                message: "Error deleting",
+                err
             })
-        })
+        }
     })
     .patch(checkAuth, async (req, res) => {
         const {id} = req.params
-        const editCard = await Card.findByIdAndUpdate(id, {...req.body})
-        await editCard.save()
-        .then(() => {
+        try {
+            const editCard = await Card.findByIdAndUpdate(id, {...req.body})
+            await editCard.save()
             res.status(201).json({
                 message: "Edited successfully"
             })
-        })
-        .catch(err => {
+        } catch (err) {
             res.status(400).json({
-                message: "Error editing"
+                message: "Error editing",
+                err
             })
-        })
+        }
     })
 
     module.exports = router
