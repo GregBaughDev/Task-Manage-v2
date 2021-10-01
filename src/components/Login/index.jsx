@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Header, Img, P, Nav } from "../TaskPage/styles"
 import { Form, Input } from "../NewCard/styles"
 import { Button } from "../CardModal/styles"
-import { FormHolder } from "./styles"
+import { FormHolder, H4 } from "./styles"
 import logo from "../../public/img/TMlogo.png"
 import "./styles.css"
 
@@ -12,8 +12,8 @@ const Login = ({setUserAuth}) => {
         username: '',
         password: ''
     }) 
-    // Handle errors in user information
-    const [logError, setLogError] = useState('')
+    // Handle information in user login/new user
+    const [logError, setLogInfo] = useState('')
     // Handle whether a new user is being created
     const [newUser, setNewUser] = useState(false)
     // Handle new user form
@@ -45,7 +45,7 @@ const Login = ({setUserAuth}) => {
             if(confirm.logged){
                 setUserAuth(confirm.id)
             } else {
-                setLogError('There is an error with the username or password')
+                setLogInfo('There is an error with the username or password')
             }
         } catch(err) {
             console.log(err)
@@ -70,8 +70,12 @@ const Login = ({setUserAuth}) => {
                 body: JSON.stringify(newUserForm)
             })
             const response = await addNew.json()
-            // TO DO: CHECK IF RESPONSE IS +VE AND MOVE TO LOGIN
-            console.log(response)
+            if(response.userInSystem === false){
+                setNewUser(false)
+                setLogInfo("User created! Please login")
+            } else {
+                setLogInfo("Username already in use")
+            }
         } catch (e) {
             console.log(e)
         } 
@@ -79,17 +83,17 @@ const Login = ({setUserAuth}) => {
 
     const createUser = () => {
         const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/g
-        setLogError(false)
+        setLogInfo(false)
         for(let value in newUserForm){
             if(newUserForm[value] === '') {
-                return setLogError('All fields must be completed')
+                return setLogInfo('All fields must be completed')
             } 
         }
         if(newUserForm['passwordFirst'] !== newUserForm['passwordSecond']){
-            return setLogError('Passwords must match')
+            return setLogInfo('Passwords must match')
         }
         if(!passwordRegex.test(newUserForm['passwordFirst'])){
-            return setLogError('Password does not meet requirements')
+            return setLogInfo('Password does not meet requirements')
         }
         newUserForm.sentFrom = true
         submitNewUser()
@@ -100,7 +104,11 @@ const Login = ({setUserAuth}) => {
             <Header>
                 <Img alt="Task Manage logo" src={logo} />
                 <Nav>
-                    <P onClick={() => setNewUser(!newUser)}>{!newUser ? "New User" : "Cancel"}</P>
+                    <P onClick={() => {
+                        setNewUser(!newUser)
+                        setLogInfo(false)
+                    }
+                    }>{!newUser ? "New User" : "Cancel"}</P>
                 </Nav>
             </Header>
                 <FormHolder $newUser={newUser}>
@@ -111,7 +119,7 @@ const Login = ({setUserAuth}) => {
                             <h4>username: testuser</h4>
                             <h4>password: test1234</h4>
                             <Form>
-                                <h4>{logError ? logError : 'Enter your username and password'}</h4>
+                                <H4>{logError ? logError : 'Enter your username and password'}</H4>
                                 <label htmlFor="username">Username:</label>
                                     <Input onChange={loginForm} type="text" name="username" id="username" />
                                 <label htmlFor="password">Password:</label>
@@ -122,7 +130,7 @@ const Login = ({setUserAuth}) => {
                         <>
                             <h1>Create New User</h1>
                             <Form>
-                                {logError && <h4>{logError}</h4>}
+                                {logError && <H4>{logError}</H4>}
                                 <label htmlFor="username">Enter a username:</label>
                                     <Input onChange={createNewUserForm} type="text" name="username" id="username" />
                                 <label htmlFor="passwordFirst">Enter a password:</label>

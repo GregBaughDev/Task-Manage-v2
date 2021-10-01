@@ -16,8 +16,7 @@ router
             })
         }
     })
-    /* Add checkauth in below for production */
-    .post(async (req, res) => {
+    .post(checkAuth, async (req, res) => {
         const colLength = await Column.find()
         const newColumn = await new Column(req.body)
         newColumn.id = colLength.length + 1
@@ -28,7 +27,6 @@ router
 router
     .route("/:id")
     .delete(async (req, res) => {
-        // WIP: Below isn't find the column
         const {id} = req.params
         await Column.findOneAndDelete({id: id})
         res.end()

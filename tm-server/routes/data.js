@@ -18,12 +18,14 @@ router
         }
     })
     .post(checkAuth, async (req, res) => {
+        const newCard = await new Card(req.body)
+        const cardColumn = await Column.find({id: req.body.column})
+        console.log(cardColumn)
+        await newCard.save()
+        await cardColumn.cards.push(newCard)
+        console.log(cardColumn)
+        await cardColumn.save()
         try {
-            const newCard = await new Card(req.body)
-            const cardColumn = await Column.find({id: req.body.column})
-            await newCard.save()
-            await cardColumn.cards.push(newCard)
-            await cardColumn.save()
             res.status(201).json({
                 message: "Added successfully"
             })
