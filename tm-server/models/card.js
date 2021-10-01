@@ -21,7 +21,7 @@ const CardScema = new Schema({
     description: {
         type: String,
         required: true,
-        minlength: 10
+        minlength: 1
     },
     // Update the below for version 2 when columns can be added
     column: {
