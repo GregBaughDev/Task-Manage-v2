@@ -10,7 +10,7 @@ const CardScema = new Schema({
     dateTime: {
         type: String,
         required: true,
-        minlength: 5
+        minlength: 1
     },
     // Update user when users collections is set up
     user: {
@@ -21,7 +21,7 @@ const CardScema = new Schema({
     description: {
         type: String,
         required: true,
-        minlength: 10
+        minlength: 1
     },
     // Update the below for version 2 when columns can be added
     column: {
