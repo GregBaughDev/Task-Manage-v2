@@ -10,7 +10,7 @@ const CardScema = new Schema({
     dateTime: {
         type: String,
         required: true,
-        minlength: 5
+        minlength: 1
     },
     // Update user when users collections is set up
     user: {
