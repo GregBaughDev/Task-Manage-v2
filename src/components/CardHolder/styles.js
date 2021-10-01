@@ -9,26 +9,26 @@ export const Holder = styled.div`
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    /* Disable the below for version 1 */
-    /* overflow-x: scroll; */
+    overflow-x: scroll;
 `
 
 export const HolderHead = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 5vh;
+    justify-content: space-between;
+    width: auto;
     border-radius: 12px 12px 0 0;
     background-color: #DAEDDE;
 `
 
 export const H3 = styled.h3`
     min-width: 23%;
-    /* Below for v2 */
-    /* min-width: 15vw; */
     width: 25%;
     text-align: center;
+    background-color: #DAEDDE;
+    height: 100%;
+    padding: 1vh 0;
+    white-space: nowrap; 
 
     @media (max-width: 600px) {
         font-size: 1rem;
@@ -42,7 +42,7 @@ export const H3 = styled.h3`
 export const Cards = styled.div`
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 2vh 0;
 `  
 

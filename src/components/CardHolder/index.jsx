@@ -35,7 +35,6 @@ const CardHolder = ({columns, dbData, editData, closeViewEdit, cardActive, handl
                                     handleDelete={handleDelete}
                                     cardActive={cardActive} /> }
             </CardDisplay>
-            {/* TO DO V2 - Move below into cards section for styling */}
             <HolderHead>
                 {columns.map((column) => (
                         <H3 key={column.id}>{column.name}</H3>
