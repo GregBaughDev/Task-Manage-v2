@@ -19,7 +19,7 @@ const ColumnSchema = new Schema({
         }
     ]
 })
-//TO DO: WIP Below
+// Below removes all cards in a column when the column is deleted
 ColumnSchema.post('findOneAndDelete', async function (doc) {
     if(doc){
         await Card.deleteMany({

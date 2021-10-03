@@ -222,7 +222,7 @@ const TaskPage = ({setUserAuth}) => {
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
-                   <P onClick={makeNewCard}>New Task</P>
+                   {colData.length >= 1 && <P onClick={makeNewCard}>New Task</P>}
                    <P onClick={editColumn}>Edit Columns</P>
                    <P onClick={handleLogOut}>Log Out</P>
                </Nav>
