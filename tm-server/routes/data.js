@@ -53,15 +53,15 @@ router
     .patch(checkAuth, async (req, res) => {
         const {id, column} = req.params
         try {
+            // Card that is being edited
             const editCard = await Card.findByIdAndUpdate(id, {...req.body})
-            let prevCol = await Column.findOne({cards: editCard._id}).populate('cards')
-            let newCol = await Column.findOne({id: parseInt(id)})
-            //The below isnt working!
-            prevCol.cards = await prevCol.cards.splice(prevCol.cards.indexOf(editCard._id, 1))
-            // console.log(prevCol)
-            // console.log(newCol)
-            // Find current column and update array
-            // Find new column and add to array
+            // Find column that card current belongs to and remove it from the cards array
+            let prevCol = await Column.findOne({id: editCard.column}).populate('cards')
+            prevCol.cards = prevCol.cards.filter(card => card.id !== editCard.id)
+            // Find column that card is moving to and add the card to the array
+            // TO DO!
+            // let newCol = await Column.findOne({id: req.body.id})
+            await prevCol.save()
             await editCard.save()
             res.status(201).json({
                 message: "Edited successfully"
