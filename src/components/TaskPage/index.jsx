@@ -4,7 +4,6 @@ import CardHolder from '../CardHolder/index.jsx'
 import NewCard from '../NewCard/index'
 import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
-import columns from './columns'
 
 const TaskPage = ({setUserAuth}) => {
     // State for new card in progress
@@ -16,10 +15,10 @@ const TaskPage = ({setUserAuth}) => {
     // Seed data passed into state
     const [dbData, setDbData] = useState([]) 
     // Column data passed into state
-    const [colData, setColData] = useState(columns)
+    const [colData, setColData] = useState([])
     // State for handling adding a new column
     const [colForm, setColForm] = useState({
-        id: 5,
+        id: '',
         name: '',
     })
     // State for handling viewing of a card
@@ -42,6 +41,15 @@ const TaskPage = ({setUserAuth}) => {
         }))
     }
 
+    // Function to handle the new column data
+    const updateColumn = (e) => {
+        const {name, value} = e.target
+        setColForm(colForm => ({
+            ...colForm,
+            [name]: value
+        }))
+    }
+
     // SERVER START
     const fetchData = async () => {
         try {
@@ -53,8 +61,19 @@ const TaskPage = ({setUserAuth}) => {
         }
     }
 
+    const fetchColumns = async () => {
+        try {
+            const response = await fetch('/apicol')
+            const columns = await response.json()
+            setColData(columns)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     useEffect(() => {
         fetchData()
+        fetchColumns()
     }, [])
 
     // Function to handle adding the new card to the db
@@ -104,6 +123,39 @@ const TaskPage = ({setUserAuth}) => {
         fetchData()
         closeViewEdit()
     }
+
+    // Function to handle adding the new column to the column data
+    const addNewColumn = async (e) => {
+        e.preventDefault()
+        try {
+            await fetch('/apicol', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(colForm)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+        editColumn()
+        fetchData()
+        fetchColumns()
+    }
+
+    // Function to handle deleting a column
+    const handleColDelete = async (id) => {
+        try {
+            await fetch(`/apicol/${id}`, {
+                method: 'DELETE',
+            })
+        } catch (err) {
+            console.log(err)
+        }
+        editColumn()
+        fetchColumns()
+    }
+
     // SERVER END
 
     // Function to change the view if a card is not being added
@@ -116,29 +168,6 @@ const TaskPage = ({setUserAuth}) => {
     const editColumn = () => {
         setModal(!modal)
         setUpdateCol(!updateCol)
-    }
-    
-    // Function to handle the new column data
-    const updateColumn = (e) => {
-        const {name, value} = e.target
-        setColForm(colForm => ({
-            ...colForm,
-            [name]: value
-        }))
-    }
-
-    // Function to handle adding the new column to the column data
-    const addNewColumn = (e) => {
-        e.preventDefault()
-        // TO DO: Look into below as ID is adding two 5's and sort styles for new column
-        setColForm(colForm => ({
-            ...colForm,
-            id: colData.length + 1,
-        }))
-        setColData(colData => (
-            colData = [...colData, colForm]
-        ))
-        editColumn()
     }
 
     // Function to handle editing a column and replacing in the array
@@ -154,18 +183,6 @@ const TaskPage = ({setUserAuth}) => {
         ))
     }
 
-    // Function to handle deleting a column
-    const handleColDelete = (id) => {
-        // Delete the column
-        let tempColArray = [...colData]
-        setColData(colData => (
-            colData = tempColArray.filter(data => data.id !== id)
-        ))
-        // Delete the cards in the column
-        // TO DO: Cards not deleted from column - update when connected to backend
-        editColumn()
-    }
-
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
     const closeViewEdit = () => {
         setCardActive(!cardActive)
@@ -176,8 +193,6 @@ const TaskPage = ({setUserAuth}) => {
             await fetch('/apilog', {
                 method: 'DELETE',
             })
-            .then(res => res.json())
-            .then(msg => console.log(msg))
         } catch(err) {
             console.log(err)
         }
@@ -205,9 +220,8 @@ const TaskPage = ({setUserAuth}) => {
                 </NewCardDisplay>
                <Img alt="Task Manage logo" src={logo} />
                <Nav>
-                   <P onClick={makeNewCard}>New Task</P>
-                   {/* TODO: Edit column functionality for v2 */}
-                   {/* <P onClick={editColumn}>Edit Columns</P> */}
+                   {colData.length >= 1 && <P onClick={makeNewCard}>New Task</P>}
+                   <P onClick={editColumn}>Edit Columns</P>
                    <P onClick={handleLogOut}>Log Out</P>
                </Nav>
             </Header>

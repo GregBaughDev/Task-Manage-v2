@@ -10,7 +10,7 @@ export const FormHolder = styled.div`
     margin: 0 auto;
 
     Form {
-        height: 50%;
+        height: ${({$newUser}) => ($newUser ? 'auto' : '60%')};
         width: 75%;
         border: 3px solid #2C436D;
         border-radius: 30px;
@@ -27,4 +27,9 @@ export const FormHolder = styled.div`
             width: 75%;
         }
     }
+`
+
+export const H4 = styled.h4`
+    font-size: 1.50rem;
+    text-align: center;
 `

@@ -9,12 +9,21 @@ const mongoose = require('mongoose')
 const MongoDBStore = require('connect-mongo')
 const api = require('./routes/data')
 const apilog = require('./routes/log')
+const apicol = require('./routes/column')
+const apiuser = require('./routes/user')
 const cors = require('cors')
 const { v4: uuidv4 } = require('uuid')
 
 const port = process.env.PORT || 5000
+let dbConnection 
 
-mongoose.connect(process.env.DB_URL,
+if(process.env.NODE_ENV === 'production'){
+    dbConnection = process.env.DB_URL
+} else {
+    dbConnection = 'mongodb://localhost:27017/task-manage'
+}
+
+mongoose.connect(dbConnection,
     {useNewUrlParser: true,
     useUnifiedTopology: true})
 
@@ -29,7 +38,6 @@ const store = MongoDBStore.create({
     secret: process.env.SECRET,
     touchAfter: 24 * 60 * 60,
 })
-
 store.on("error", function(e) {
     console.log("Error with StoreDB", e)
 })
@@ -50,6 +58,8 @@ app.use(session ({
 
 app.use("/api", api)
 app.use("/apilog", apilog)
+app.use("/apicol", apicol)
+app.use("/apiuser", apiuser)
 
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('build'))
