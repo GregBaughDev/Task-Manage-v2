@@ -152,8 +152,6 @@ const TaskPage = ({setUserAuth}) => {
         } catch (err) {
             console.log(err)
         }
-        // Delete the cards in the column
-        // TO DO: Cards not deleted from column - update when connected to backend
         editColumn()
         fetchColumns()
     }

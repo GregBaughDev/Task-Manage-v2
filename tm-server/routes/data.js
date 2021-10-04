@@ -19,7 +19,9 @@ router
     })
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
-        const cardColumn = await Column.findOne({id: req.body.column})
+        const cardColumn = await Column.findOne({id: parseInt(req.body.column)})
+        // TODO: When a new column is created after others have delete the ID changes which is causing an issue
+        console.log(cardColumn)
         await newCard.save()
         await cardColumn.cards.push(newCard)
         await cardColumn.save()
@@ -39,7 +41,10 @@ router
     .route("/:id")
     .delete(checkAuth, async (req, res) => {
         try {
-            await Card.findByIdAndDelete(req.params.id)
+            const deleteCard = await Card.findByIdAndDelete(req.params.id)
+            const updateCol = await Column.findOne({id: deleteCard.column})
+            updateCol.cards.splice(updateCol.cards.indexOf(deleteCard.id), 1)
+            updateCol.save()
             res.status(201).json({
                 message: "Deleted successfully"
             })
@@ -51,17 +56,19 @@ router
         }
     })
     .patch(checkAuth, async (req, res) => {
-        const {id, column} = req.params
+        const {id} = req.params
         try {
             // Card that is being edited
             const editCard = await Card.findByIdAndUpdate(id, {...req.body})
             // Find column that card current belongs to and remove it from the cards array
-            let prevCol = await Column.findOne({id: editCard.column}).populate('cards')
+            const prevCol = await Column.findOne({id: editCard.column}).populate('cards')
             prevCol.cards = prevCol.cards.filter(card => card.id !== editCard.id)
             // Find column that card is moving to and add the card to the array
-            // TO DO!
-            // let newCol = await Column.findOne({id: req.body.id})
+            const newCol = await Column.findOne({id: req.body.column})
+            newCol.cards.push(editCard)
+            // Save all changes to DB
             await prevCol.save()
+            await newCol.save()
             await editCard.save()
             res.status(201).json({
                 message: "Edited successfully"
