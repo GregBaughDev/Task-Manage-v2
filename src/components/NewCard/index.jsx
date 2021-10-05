@@ -31,7 +31,7 @@ const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
         }
         setValid(true)
     }
-
+    console.log(selectCol)
     return (
         <NewCardHolder>
             <Form>

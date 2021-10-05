@@ -29,7 +29,7 @@ const TaskPage = ({setUserAuth}) => {
         dateTime: '',
         user: '',
         description: '',
-        column: 1,
+        column: 1
     }) 
  
     // Function to handle the new card data

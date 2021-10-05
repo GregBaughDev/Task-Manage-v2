@@ -11,6 +11,11 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         minlength: 8
+    },
+    colCount: {
+        type: Number,
+        required: true,
+        default: 1
     }
 })
 
