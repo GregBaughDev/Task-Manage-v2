@@ -29,7 +29,7 @@ const TaskPage = ({setUserAuth}) => {
         dateTime: '',
         user: '',
         description: '',
-        column: 1,
+        column: 1
     }) 
  
     // Function to handle the new card data
@@ -37,7 +37,7 @@ const TaskPage = ({setUserAuth}) => {
         const {name, value} = e.target
         setFormData(formData => ({
             ...formData,
-            [name]: value
+            [name]: value,
         }))
     }
 
@@ -77,8 +77,9 @@ const TaskPage = ({setUserAuth}) => {
     }, [])
 
     // Function to handle adding the new card to the db
-    const addNewForm = async (e) => {
+    const addNewForm = async (e, col) => {
         e.preventDefault()
+        setFormData(formData => formData.column = parseInt(col.current.value))
         try {
             await fetch('/api', {
                 method: 'POST',
