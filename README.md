@@ -34,13 +34,9 @@ MIT License
 Copyright (c) 2021 Greg Baugh
 
 ##### In Progress 
+Version 2
 * Editing columns
 * Update styles so scolling works on x & y axis  
 * Delete all cards in deleted column  
 * Load individual user cards and column  
 * Refactor, check current functions and add comments
-* Update errors for DB disconnection
-
-###### Future Developments
-Version 2  
-* Change 'user' to select menu - Select from currently registered users  
