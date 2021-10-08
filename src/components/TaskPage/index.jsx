@@ -79,9 +79,7 @@ const TaskPage = ({setUserAuth}) => {
     // Function to handle adding the new card to the db
     const addNewForm = async (e, col) => {
         e.preventDefault()
-        // TODO: Issue here!
         setFormData(formData => formData.column = parseInt(col.current.value))
-        console.log(formData)
         try {
             await fetch('/api', {
                 method: 'POST',

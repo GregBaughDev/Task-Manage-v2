@@ -19,9 +19,7 @@ router
     })
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
-        console.log(req.body)
         const cardColumn = await Column.findOne({id: parseInt(req.body.column)})
-        // TODO: When a new column is created after others have delete the ID changes which is causing an issue
         await newCard.save()
         await cardColumn.cards.push(newCard)
         await cardColumn.save()

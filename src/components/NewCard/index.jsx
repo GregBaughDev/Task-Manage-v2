@@ -3,7 +3,7 @@ import { NewCardHolder, Form, Input, Textarea, Select } from './styles'
 import { Button, ButtonHolder } from '../CardModal/styles'
 
 const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
-    const inputRef = useRef()
+    const colSelect = useRef()
     const [valid, setValid] = useState(false)
     const [validObj, setValidObj] = useState({
         title: '',
@@ -52,15 +52,14 @@ const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
                 <label htmlFor="description">Description:</label>
                     <Textarea onChange={updateForm} onBlur={validate} id="description" name="description"></Textarea>
                 <label htmlFor="column-select">Column:</label>
-                    {/* <Select onChange={updateForm} name="column" id="column-select"> */}
-                    <Select name="column" id="column-select">
+                    <Select ref={colSelect} name="column" id="column-select">
                             <option disabled>Select column</option>
                         {columns.map((column) => (
-                            <option ref={inputRef} key={column.id} value={column.id}>{column.name}</option>
+                            <option key={column.id} value={column.id}>{column.name}</option>
                         ))}
                     </Select>
                 <ButtonHolder>
-                    <Button onClick={(e) => addNewForm(e, inputRef)} type="button" disabled={valid ? false : true}>{valid ? 'Submit' : 'Enter information'}</Button>
+                    <Button onClick={(e) => addNewForm(e, colSelect)} type="button" disabled={valid ? false : true}>{valid ? 'Submit' : 'Enter information'}</Button>
                     <Button type="button" onClick={makeNewCard}>Close</Button>
                 </ButtonHolder>
             </Form>
