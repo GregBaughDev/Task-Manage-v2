@@ -56,6 +56,11 @@ app.use(session ({
     }
 }))
 
+app.use((req, res, next) => {
+    console.log(req.session.id)
+    next()
+})
+
 app.use("/api", api)
 app.use("/apilog", apilog)
 app.use("/apicol", apicol)

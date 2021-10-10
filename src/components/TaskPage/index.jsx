@@ -5,7 +5,7 @@ import NewCard from '../NewCard/index'
 import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
 
-const TaskPage = ({setUserAuth}) => {
+const TaskPage = ({setUserAuth, handleLogOut}) => {
     // State for new card in progress
     const [newCard, setNewCard] = useState(false)
     // State for column update in progress
@@ -187,17 +187,6 @@ const TaskPage = ({setUserAuth}) => {
     // If 'cancel' is selected, change the view. TODO: Just use one main function to handle all modal views?
     const closeViewEdit = () => {
         setCardActive(!cardActive)
-    }
-
-    const handleLogOut = async () => {
-        try {
-            await fetch('/apilog', {
-                method: 'DELETE',
-            })
-        } catch(err) {
-            console.log(err)
-        }
-        setUserAuth(false)
     }
 
     return (

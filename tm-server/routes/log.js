@@ -29,6 +29,7 @@ router
         }
     })
     .delete(checkAuth, async (req, res) => {
+        console.log("delete route is hit")
         req.session.destroy()
         res.json({
             message: "Logged out",

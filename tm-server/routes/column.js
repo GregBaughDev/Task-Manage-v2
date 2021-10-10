@@ -9,9 +9,7 @@ router
     .get(checkAuth, async (req, res) => {
         try {
             // Issue here where the columns are appearing on whoever logs in
-            console.log(req.session.id)
             const result = await User.findOne({id: req.session.id}).populate('columns')
-            console.log(result)
             res.json(result.columns)
         } catch (err) {
             res.status(400).json({
