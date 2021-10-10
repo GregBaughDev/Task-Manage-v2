@@ -18,6 +18,7 @@ router
         const validPass = await bcrypt.compare(password, search[0].password)
         if(validPass) {
             req.session.user_id = "logged"
+            req.session.user = search[0]._id
             res.json({
                 logged: true,
                 id: req.session.id
@@ -29,7 +30,6 @@ router
         }
     })
     .delete(checkAuth, async (req, res) => {
-        console.log("delete route is hit")
         req.session.destroy()
         res.json({
             message: "Logged out",

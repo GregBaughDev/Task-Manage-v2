@@ -5,7 +5,6 @@ import Login from './components/Login';
 
 function App() {
   const [userAuth, setUserAuth] = useState(false)
-  console.log(userAuth)
 
   const handleLogOut = async () => {
     try {
@@ -17,14 +16,14 @@ function App() {
     }
     setUserAuth(false)
   }
-
-  useEffect(() => {
-    if(!userAuth){
-      window.addEventListener("reload", () => handleLogOut)
-    } else {
-      window.removeEventListener("reload", () => handleLogOut)
-    }
-  }, [userAuth])
+  // TO DO: Look into if the session is destroyed on refresh?
+  // useEffect(() => {
+  //   if(!userAuth){
+  //     window.addEventListener("reload", () => handleLogOut)
+  //   } else {
+  //     window.removeEventListener("reload", () => handleLogOut)
+  //   }
+  // }, [userAuth])
 
   return (
     <>
