@@ -7,6 +7,7 @@ const checkAuth = require('../helpers/checkauth')
 router
     .route("/")
     .get(checkAuth, async (req, res) => {
+        // Issue is now that the wrong cards are loading
         try {
             const result = await Card.find()
             await res.json(result)

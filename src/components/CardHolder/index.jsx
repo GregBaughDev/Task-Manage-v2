@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Holder, HolderHead, Cards, H3, CardDisplay } from './styles'
+import { Holder, HolderHead, Cards, H3, CardDisplay, H4 } from './styles'
 import Column from '../Column/index'
 import CardModalDisplay from '../CardModal'
 
@@ -41,9 +41,11 @@ const CardHolder = ({columns, dbData, editData, closeViewEdit, cardActive, handl
                     ))}
             </HolderHead>
             <Cards>
-                {columns.map((column) => (
-                    <Column key={column.id} colNum={column.id} dbData={dbData} cardClick={cardClick} />
-                ))}
+                {columns.length === 0 ?
+                    <H4>To get started, add a new column with 'Edit Columns' above</H4> : 
+                    columns.map((column) => (
+                        <Column key={column.id} colNum={column.id} dbData={dbData} cardClick={cardClick} />
+                    ))}
             </Cards>
         </Holder>
     )

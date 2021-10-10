@@ -4,7 +4,7 @@ export const Holder = styled.div`
     width: 100%;
     height: 100%;
     border: 3px solid #2C436D;
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
     margin: 5vh 5vw;
     display: flex;
     justify-content: space-around;
@@ -58,4 +58,9 @@ export const CardDisplay = styled.div`
     height: 100%;
     background-color: rgba(44,67,109,0.7);
     overflow-y: hidden;
+`
+
+export const H4 = styled.h4`
+    margin: 0 auto;
+    text-align: center;
 `
