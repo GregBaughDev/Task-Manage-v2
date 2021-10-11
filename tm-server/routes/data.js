@@ -3,6 +3,7 @@ const router = express.Router()
 const Card = require('../models/card')
 const Column =  require('../models/column')
 const checkAuth = require('../helpers/checkauth')
+const User = require('../models/user')
 
 router
     .route("/")
@@ -20,9 +21,12 @@ router
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
         const cardColumn = await Column.findOne({id: parseInt(req.body.column)})
+        const cardOwner = await User.findById(req.session.user)
         newCard.owner = req.session.user
+        cardOwner.cards.push(newCard)
+        await cardOwner.save()
         await newCard.save()
-        await cardColumn.cards.push(newCard)
+        cardColumn.cards.push(newCard)
         await cardColumn.save()
         try {
             res.status(201).json({

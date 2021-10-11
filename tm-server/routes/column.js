@@ -35,8 +35,17 @@ router
 router
     .route("/:id")
     .delete(async (req, res) => {
+        // WIP - TEST BELOW WORKS AS IS
         const {id} = req.params
-        await Column.findOneAndDelete({id: id})
+        const col = await Column.findOneAndDelete({id: id})
+        const user = await User.findById(req.session.user)
+        user.columns = user.columns.filter(column => column.id !== id)
+        for(let card of col.cards){
+            if(user.cards.includes(card.id)){
+                user.cards.splice(user.cards.indexOf(card.id), 1)
+            }
+        }
+        await user.save()
         res.end()
     })
 
