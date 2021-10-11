@@ -7,9 +7,8 @@ const checkAuth = require('../helpers/checkauth')
 router
     .route("/")
     .get(checkAuth, async (req, res) => {
-        // Issue is now that the wrong cards are loading
         try {
-            const result = await Card.find()
+            const result = await Card.find({owner: req.session.user})
             await res.json(result)
         } catch (err) {
             res.status(400).json({
@@ -21,6 +20,7 @@ router
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
         const cardColumn = await Column.findOne({id: parseInt(req.body.column)})
+        newCard.owner = req.session.user
         await newCard.save()
         await cardColumn.cards.push(newCard)
         await cardColumn.save()

@@ -12,6 +12,10 @@ const ColumnSchema = new Schema({
         required: true,
         minlength: 1
     }, 
+    owner: {
+        type: String,
+        required: true,
+    },
     cards: [
         {
             type: Schema.Types.ObjectId,

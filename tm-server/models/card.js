@@ -12,7 +12,6 @@ const CardScema = new Schema({
         required: true,
         minlength: 1
     },
-    // Update user when users collections is set up
     user: {
         type: String,
         required: true,
@@ -23,11 +22,14 @@ const CardScema = new Schema({
         required: true,
         minlength: 1
     },
-    // Update the below for version 2 when columns can be added
     column: {
         type: Number,
         required: true,
         min: 1
+    },
+    owner: {
+        type: String,
+        required: true,
     }
 })
 

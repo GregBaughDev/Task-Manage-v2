@@ -72,7 +72,7 @@ const Login = ({setUserAuth}) => {
             const response = await addNew.json()
             if(response.userInSystem === false){
                 setNewUser(false)
-                setLogInfo("User created! Please login")
+                setLogInfo("User created - Please login")
             } else {
                 setLogInfo("Username already in use")
             }
