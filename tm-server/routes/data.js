@@ -43,11 +43,20 @@ router
 router
     .route("/:id")
     .delete(checkAuth, async (req, res) => {
+        //TODO : ISSUE HERE. WHEN A CARD IS DELETED THEY ARE ALL REMOVED
         try {
             const deleteCard = await Card.findByIdAndDelete(req.params.id)
             const updateCol = await Column.findOne({id: deleteCard.column})
+            const user = await User.findById(req.session.user)
+            // ISSUE BELOW
+            // user.cards = user.cards.filter(card => card._id === req.params.id)
+            console.log(req.params.id)
+            console.log(deleteCard._id)
+            user.cards = user.cards.filter(card => console.log(card._id === deleteCard._id))
+            //
             updateCol.cards.splice(updateCol.cards.indexOf(deleteCard.id), 1)
-            updateCol.save()
+            await updateCol.save()
+            await user.save()
             res.status(201).json({
                 message: "Deleted successfully"
             })
