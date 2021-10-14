@@ -10,11 +10,29 @@ const UpdateColumn = ({columns, updateColumn, addNewColumn, addColumnUpdate, edi
     const [addCol, setAddCol] = useState(false)
     // Currently edited column
     const [editedCol, setEditedCol] = useState(null)
+    // ID of currently edited column
+    const [colInEdit, setColInEdit] = useState(null)
+    
+    // Server start
+    const saveColumnUpdate = async () => {
+        try {
+            await fetch(`/apicol/${colInEdit}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(editedCol)
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    // Server end
 
     // The below handles updating the column name
-    // TO DO: Functionality so only one column can be updated at a time
     const columnUpdate = (e, col) => {
         e.preventDefault()
+        setColInEdit(col)
         const {name, value} = e.target
         setEditedCol(editedCol => ({
             id: col,
@@ -22,7 +40,6 @@ const UpdateColumn = ({columns, updateColumn, addNewColumn, addColumnUpdate, edi
         }))
     }
 
-    // TO DO: Delete column functionality
     // The below handles the click function depending on the button
     const handleClick = (e) => {
         if(e.target.innerText === "Add Column"){
@@ -39,15 +56,12 @@ const UpdateColumn = ({columns, updateColumn, addNewColumn, addColumnUpdate, edi
         if(e.target.innerText === "Close"){
             editColumn()
         }
-
-        if(e.target.innerText === "Delete"){
-            // Delete functionality
-            console.log('e')
-        }
     }
 
     const handleEdit = () => {
         if(editedCol !== null){
+            console.log("Save clicked")
+            saveColumnUpdate()
             addColumnUpdate(editedCol)
             editColumn()
         }
@@ -62,7 +76,7 @@ const UpdateColumn = ({columns, updateColumn, addNewColumn, addColumnUpdate, edi
                     {columns.map((col) => (
                         colEdit ? 
                             <ColDiv key={col.id}>
-                                <Input type="text" onChange={e => columnUpdate(e, col.id)} defaultValue={col.name} name="name" />
+                                <Input type="text" onChange={e => columnUpdate(e, col.id)} defaultValue={col.name} name="name" disabled={colInEdit !== null && colInEdit !== col.id ? true : false}/>
                                 <Button onClick={e => handleColDelete(col.id)}>Delete</Button>
                             </ColDiv> :
                             <P key={col.id}>{col.name}</P>

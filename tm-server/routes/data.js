@@ -20,7 +20,7 @@ router
     })
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
-        const cardColumn = await Column.findOne({id: parseInt(req.body.column)})
+        const cardColumn = await Column.findOne({id: parseInt(req.body.column), owner: req.session.user})
         const cardOwner = await User.findById(req.session.user)
         newCard.owner = req.session.user
         cardOwner.cards.push(newCard)
@@ -43,17 +43,11 @@ router
 router
     .route("/:id")
     .delete(checkAuth, async (req, res) => {
-        //TODO : ISSUE HERE. WHEN A CARD IS DELETED THEY ARE ALL REMOVED
         try {
             const deleteCard = await Card.findByIdAndDelete(req.params.id)
             const updateCol = await Column.findOne({id: deleteCard.column})
             const user = await User.findById(req.session.user)
-            // ISSUE BELOW
-            // user.cards = user.cards.filter(card => card._id === req.params.id)
-            console.log(req.params.id)
-            console.log(deleteCard._id)
-            user.cards = user.cards.filter(card => console.log(card._id === deleteCard._id))
-            //
+            user.cards.splice(user.cards.indexOf(req.params.id), 1)
             updateCol.cards.splice(updateCol.cards.indexOf(deleteCard.id), 1)
             await updateCol.save()
             await user.save()

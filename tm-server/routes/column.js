@@ -44,9 +44,9 @@ router
     .delete(async (req, res) => {
         try {
             const {id} = req.params
-            const col = await Column.findOneAndDelete({id: id})
+            const col = await Column.findOneAndDelete({id: id, owner: req.session.user})
             const user = await User.findById(req.session.user)
-            user.columns = user.columns.filter(column => column._id === col._id)
+            user.columns.splice(user.columns.indexOf(id), 1)
             for(let card of col.cards){
                 if(user.cards.includes(card._id)){
                     user.cards.splice(user.cards.indexOf(card._id), 1)
@@ -59,6 +59,17 @@ router
                 message: "Error deleting columns",
                 err
             })
+        }
+    })
+    .patch(async (req, res) => {
+        try {
+            const {id} = req.body
+            const col = await Column.findOne({id: id, owner: req.session.user})
+            col.name = req.body.name
+            await col.save()
+            res.end()
+        } catch (err) {
+            console.log(err)
         }
     })
 
