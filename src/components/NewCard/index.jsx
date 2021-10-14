@@ -38,7 +38,7 @@ const NewCard = ({columns, addNewForm, updateForm, makeNewCard}) => {
             <Form>
                 <label htmlFor="title">Title:</label>
                     <Input onChange={updateForm} onBlur={validate} type="text" name="title" id="title" />
-                {/* TODO: VERSION 2 add date validations 
+                {/* TODO: VERSION 3 add date validations 
                 <label htmlFor="date">Start Date
                     <Input type="date" name="date" id="date" />
                 </label>

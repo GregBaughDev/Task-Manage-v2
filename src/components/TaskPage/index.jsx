@@ -5,7 +5,7 @@ import NewCard from '../NewCard/index'
 import UpdateColumn from '../UpdateColumn'
 import logo from '../../public/img/TMlogo.png'
 
-const TaskPage = ({setUserAuth, handleLogOut}) => {
+const TaskPage = ({setUserAuth}) => {
     // State for new card in progress
     const [newCard, setNewCard] = useState(false)
     // State for column update in progress
@@ -156,6 +156,17 @@ const TaskPage = ({setUserAuth, handleLogOut}) => {
         editColumn()
         fetchColumns()
     }
+
+    const handleLogOut = async () => {
+        try {
+            await fetch('/apilog', {
+                method: 'DELETE',
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        setUserAuth(false)
+      }
 
     // SERVER END
 

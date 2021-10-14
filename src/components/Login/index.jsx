@@ -108,7 +108,7 @@ const Login = ({setUserAuth}) => {
                         setNewUser(!newUser)
                         setLogInfo(false)
                     }
-                    }>{!newUser ? "New User" : "Cancel"}</P>
+                    }>{!newUser ? "New User?" : "Cancel"}</P>
                 </Nav>
             </Header>
                 <FormHolder $newUser={newUser}>

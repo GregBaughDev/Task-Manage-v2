@@ -1,3 +1,5 @@
+// Script for clearing local DB data for dev
+
 const mongoose = require('mongoose')
 
 const User = require('./models/user')

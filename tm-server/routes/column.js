@@ -42,11 +42,12 @@ router
 router
     .route("/:id")
     .delete(async (req, res) => {
+        // TO DO: Issue with updating and retrieving columns
         try {
             const {id} = req.params
             const col = await Column.findOneAndDelete({id: id, owner: req.session.user})
             const user = await User.findById(req.session.user)
-            user.columns.splice(user.columns.indexOf(id), 1)
+            user.columns.splice(user.columns.indexOf(col._id), 1)
             for(let card of col.cards){
                 if(user.cards.includes(card._id)){
                     user.cards.splice(user.cards.indexOf(card._id), 1)

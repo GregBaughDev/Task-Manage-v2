@@ -76,6 +76,7 @@ const CardModalDisplay = ({closeViewEdit, currentData, columns, setEditCard, edi
                     <label htmlFor="description">Description:</label>
                         <Textarea id="description" name="description" onBlur={validate} onChange={formUpdate} defaultValue={currentData[0].description}></Textarea>
                     <label htmlFor="column-select">Column:</label>
+                        {/* BUG: Display doesn't update when column is changed but the card is moved correctly */}
                         <Select value={currentData[0].column} onChange={formUpdate} name="column" id="column-select" required>
                                 <option value="" disabled>Select column</option>
                             {columns.map((column) => (
