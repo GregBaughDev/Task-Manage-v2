@@ -3,6 +3,7 @@ const router = express.Router()
 const Card = require('../models/card')
 const Column =  require('../models/column')
 const checkAuth = require('../helpers/checkauth')
+const User = require('../models/user')
 
 router
     .route("/")
@@ -19,10 +20,13 @@ router
     })
     .post(checkAuth, async (req, res) => {
         const newCard = await new Card(req.body)
-        const cardColumn = await Column.findOne({id: parseInt(req.body.column)})
+        const cardColumn = await Column.findOne({id: parseInt(req.body.column), owner: req.session.user})
+        const cardOwner = await User.findById(req.session.user)
         newCard.owner = req.session.user
+        cardOwner.cards.push(newCard)
+        await cardOwner.save()
         await newCard.save()
-        await cardColumn.cards.push(newCard)
+        cardColumn.cards.push(newCard)
         await cardColumn.save()
         try {
             res.status(201).json({
@@ -42,8 +46,11 @@ router
         try {
             const deleteCard = await Card.findByIdAndDelete(req.params.id)
             const updateCol = await Column.findOne({id: deleteCard.column})
+            const user = await User.findById(req.session.user)
+            user.cards.splice(user.cards.indexOf(req.params.id), 1)
             updateCol.cards.splice(updateCol.cards.indexOf(deleteCard.id), 1)
-            updateCol.save()
+            await updateCol.save()
+            await user.save()
             res.status(201).json({
                 message: "Deleted successfully"
             })
