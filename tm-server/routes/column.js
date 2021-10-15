@@ -41,8 +41,7 @@ router
 
 router
     .route("/:id")
-    .delete(async (req, res) => {
-        // TO DO: Issue with updating and retrieving columns
+    .delete(checkAuth, async (req, res) => {
         try {
             const {id} = req.params
             const col = await Column.findOneAndDelete({id: id, owner: req.session.user})
@@ -62,7 +61,7 @@ router
             })
         }
     })
-    .patch(async (req, res) => {
+    .patch(checkAuth, async (req, res) => {
         try {
             const {id} = req.body
             const col = await Column.findOne({id: id, owner: req.session.user})
