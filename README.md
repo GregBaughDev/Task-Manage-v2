@@ -33,6 +33,14 @@ You are also welcome to create your own account.
 ![](https://res.cloudinary.com/dbdcclhzw/image/upload/v1632802545/Projects/Task/TM1_gbybew.png)
 ![](https://res.cloudinary.com/dbdcclhzw/image/upload/v1632802545/Projects/Task/TM2_bfjzae.png)
 
+#### Version 2 User Journey  
+- User can create new account ✔️  
+- User can add columns ✔️  
+- User adds cards and columns which are stored with their individual profile ✔️  
+- User deletes column which also removes the cards stored in the column ✔️  
+- User edits column or card and this is updated in the database ✔️  
+- User logs in and their individual columns and cards are loaded ✔️  
+
 #### Licence
 MIT License
 Copyright (c) 2021 Greg Baugh
