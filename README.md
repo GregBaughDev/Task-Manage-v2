@@ -10,7 +10,7 @@ I built this project using ReactJS for the frontend and NodeJS/Express on the ba
   
 After completing a React course which focused on class based components, I built an initial version of the project (code can be viewed [here](https://github.com/GregBaughDev/Task-Manage)) which incorporated a drag and drop library to allow for drag and drop functionality. After the integration of the library the initial development became a combination of class and functional based components. Attempting to integrate user data into the application became increasingly difficult. Returning to the drawing board, I completed another React course which taught functional components. With the changes in React moving towards functional based components and hooks, I've now rebuilt the app integrating functional components and hooks. Utilising only functional components has definitely made the development process easier and kept the codebase consistent.
 
-**Version 2**
+**Version 2**  
 V2 adds the ability to create new accounts alongside the ability to update, add and delete columns. When a user logs in only their own columns and cards are displayed. The database schema have also been updated so all cards and columns are linked to individual user accounts.
 
 I've used the [Hauora](https://github.com/WCYS-Co/Hauora-Sans) font family for this project.
@@ -25,7 +25,8 @@ The project is available [here](https://taskmanage2.herokuapp.com/)
 Username: testuser   
 Login: test1234
 
-You are also welcome to create your own account. *Please note, due to database constraints all user accounts are regularly deleted*
+You are also welcome to create your own account.  
+*Please note, due to database constraints all user accounts are regularly deleted*
 
 #### Images
 ![](https://res.cloudinary.com/dbdcclhzw/image/upload/v1632802545/Projects/Task/TM3_rgwfzx.png)
