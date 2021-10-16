@@ -23,7 +23,7 @@ The project is available [here](https://taskmanage2.herokuapp.com/)
 
 #### Test login user details
 Username: testuser   
-Login: test1234
+Login: Test1234
 
 You are also welcome to create your own account.  
 *Please note, due to database constraints all user accounts are regularly deleted*

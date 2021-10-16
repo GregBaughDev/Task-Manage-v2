@@ -117,7 +117,7 @@ const Login = ({setUserAuth}) => {
                             <h1>Login</h1>
                             <h3>Test account details:</h3> 
                             <h4>username: testuser</h4>
-                            <h4>password: test1234</h4>
+                            <h4>password: Test1234</h4>
                             <Form>
                                 <H4>{logError ? logError : 'Enter your username and password'}</H4>
                                 <label htmlFor="username">Username:</label>
